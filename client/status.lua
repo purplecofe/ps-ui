@@ -14,5 +14,5 @@ local function StatusHide()
     })
 end
 
-exports("Show", StatusShow)
-exports("Hide", StatusHide)
+exports("StatusShow", StatusShow)
+exports("StatusHide", StatusHide)

@@ -21,9 +21,6 @@ window.addEventListener('message', function (event) {
 
 });
 
-const sleep = (ms) => {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-};
 
 function createTitle(title) {
     return createParagraph(title, "title");

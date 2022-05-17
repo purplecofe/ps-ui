@@ -41,3 +41,23 @@ end)
 RegisterCommand("hide", function()
     exports['ps-ui']:HideText()
 end)
+
+
+local status = false
+RegisterCommand("status", function()
+    if not status then
+        status = true
+        exports['ps-ui']:StatusShow("Area Dominance", {
+            "Gang: Ballas",
+            "Influence: %100",
+        })
+    else 
+        status = false
+        exports['ps-ui']:StatusHide()
+    end
+end)
+
+
+
+
+
