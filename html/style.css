@@ -58,6 +58,30 @@
   color:#822ff6
 }
 
+/* STATUS */
+.status {
+  position: absolute;
+  bottom: -500px;
+  left:50%;
+  transform: translateX(-50%);
+  padding: 1vh 5vh;
+  box-shadow: 0rem 0rem 0.1rem 0.05rem #000000;
+  background: #1b2027;
+  display: none;
+}
+
+.status p.title {
+  margin-top: 10px;
+  margin-bottom: 15px;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.status p.text {
+  margin-bottom: 10px;
+  font-size: 0.8rem;
+}
+
 /* THERMITE */
 .thermite-container {
     position: relative;
