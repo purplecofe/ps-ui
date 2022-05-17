@@ -1,18 +1,6 @@
-let timer_start, timer_finish, timer_hide, timer_time, good_positions, best_route, blinking_pos, last_pos, wrong, speed, timerStart;
-let game_started = false;
-let streak = 0;
-let max_streak = 0;
-let best_time = 99.999;
+var timer_start, timer_finish, timer_hide, timer_time, good_positions, best_route, blinking_pos, last_pos, wrong, speed, timerStart;
+var game_started = false;
 
-const sleep = (ms, fn) => {return setTimeout(fn, ms)};
-
-const range = (start, end, length = end - start + 1) => {
-    return Array.from({length}, (_, i) => start + i)
-}
-
-const random = (min, max) => {
-    return Math.floor(Math.random() * (max - min)) + min;
-}
 
 function listener(ev) {
     if(!game_started) return;
@@ -61,7 +49,6 @@ function check() {
     if (wrong === 3) {
         resetTimer();
         game_started = false;
-        streak = 0;
 
         document.querySelector('.chess-groups').classList.remove('transparent');
         let blocks = document.querySelectorAll('.chess-group');
@@ -147,7 +134,7 @@ function reset() {
     document.querySelectorAll('.chess-group').forEach(el => { el.remove(); });
 }
 
-function start() {
+function startChess() {
     wrong = 0;
     last_pos = 0;
     
@@ -156,7 +143,7 @@ function start() {
     good_positions = Object.keys(best_route);
 
     let div = document.createElement('div');
-    div.classList.add('group');
+    div.classList.add('chess-group');
     const groups = document.querySelector('.chess-groups');
     for(let i=0; i < 49; i++){
         let group = div.cloneNode();
@@ -221,22 +208,19 @@ function resetTimer() {
     clearInterval(timer_time);
 }
 
-//start();
-
 window.addEventListener('message', (event) => {
-    if (event.data.type === 'chess-start') {
-        blocksInput = event.data.blocks
+    if (event.data.action === 'chess-start') {
         speed = event.data.speed
         document.querySelector('.chess-splash').classList.remove('hidden');
         document.querySelector('.chess-splash .chess-text').innerHTML = 'Network Access Blocked... Override Required';
         $(".chess-hack").fadeIn()
         sleep(3000, function() {
+            console.log("here 1");
             document.querySelector('.chess-splash').classList.add('hidden');
-            document.querySelector('.chess-groups').classList.remove('hidden','playing');
+            document.querySelector('.chess-groups').classList.remove('hidden', 'playing');
             game_started = true;
-            start();
+            startChess();
         });
-        
     }
 });
 

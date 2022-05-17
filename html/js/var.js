@@ -1,12 +1,7 @@
 let blocksInput;
 let speedInput;
 
-const random = (min, max) => {
-    return Math.floor(Math.random() * (max - min)) + min;
-}
-const range = (start, end, length = end - start + 1) => {
-    return Array.from({ length }, (_, i) => start + i)
-}
+
 const shuffle = (arr) => {
     for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -16,12 +11,10 @@ const shuffle = (arr) => {
     }
 }
 
-let sleep = (ms, fn) => {return setTimeout(fn, ms)};
+var timer_game, order;
 
-let timer_game, order;
-
-let game_started = false;
-let game_playing = false;
+var game_started = false;
+var game_playing = false;
 
 document.addEventListener("keydown", function(ev) {
     let key_pressed = ev.key;
@@ -41,7 +34,7 @@ document.addEventListener("keydown", function(ev) {
     }
 });
 
-let validate = (ev) => {
+var validate = (ev) => {
     if (game_playing === false) return;
     
     if (parseInt(ev.target.dataset.number, 10) === order) {
@@ -76,22 +69,22 @@ let validate = (ev) => {
     }
 }
 
-let reset = () => {
+var reset = () => {
     clearTimeout(timer_game);
     
     document.querySelector('.var-splash').classList.add('hidden');
     document.querySelector('.var-groups').classList.remove('hidden','playing');
     document.querySelector('.var-groups').innerHTML = '';
 
-    start();
+    startVar();
 }
 
-let destroy = () => {
+var destroy = () => {
     document.querySelector('.var-groups').classList.remove('hidden','playing');
     document.querySelector('.var-groups').innerHTML = '';
 }
 
-let newPos = (element) => {
+var newPos = (element) => {
     let top = element.offsetTop;
     let left = element.offsetLeft;
     let new_top = random(10,755);
@@ -127,7 +120,7 @@ let newPos = (element) => {
     }).play();
 }
 
-let start = () => {
+var startVar = () => {
     order = 1;
     game_started = true;
     game_playing = false;
@@ -166,7 +159,7 @@ window.addEventListener('message', (event) => {
             document.querySelector('.var-splash .var-text').innerHTML = 'INITIALIZING...';
             document.querySelector('.var-splash').classList.add('hidden');
             document.querySelector('.var-groups').classList.remove('hidden','playing');
-            start();
+            startVar();
         });
         
     }

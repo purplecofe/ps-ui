@@ -7,7 +7,7 @@ RegisterNUICallback('var-callback', function(data, cb)
     cb('ok')
 end)
 
-function var(callback, blocks, speed)
+function VarHack(callback, blocks, speed)
     if not open then
         Callbackk = callback
         SetNuiFocus(true, true)
@@ -19,4 +19,4 @@ function var(callback, blocks, speed)
     end
 end
 
-exports("var", var)
+exports("VarHack", VarHack)

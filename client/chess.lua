@@ -10,11 +10,12 @@ end)
 function ChessHack(callback, speed)
     if not open then
         Callbackk = callback
-        SetNuiFocus(true, true)
+        open = true
         SendNUIMessage({
-            type = "open",
+            action = "chess-start",
             speed = speed,
         })
+        SetNuiFocus(true, true)
     end
 end
 

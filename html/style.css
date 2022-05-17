@@ -12,7 +12,6 @@
   left:1%;
   max-width:25%;
   transform: translateY(calc(-50% - .5px));
-  width:100%;
   border-radius: 3px 3px 3px 3px;
   margin-left:auto;
 }
@@ -137,51 +136,6 @@
 
   /* VAR */
 
-  /**
- MINIGAME SQUARES
- */
-.var-streaks {
-  display: block;
-  margin: 40px auto;
-  text-align: center;
-  font-size: 30px;
-  font-weight: bold;
-  text-transform: uppercase;
-  color: white;
-  width: -moz-fit-content;
-  width: fit-content;
-  background-color: #028000;
-  padding: 12px;
-  border-radius: 18px;
-}
-.var-options{
-  font-weight: bold;
-  text-align: center;
-  margin: 0 auto 10px;
-}
-.var-option{
-  display: inline-block;
-  color: white;
-  font-weight: bold;
-  text-align: center;
-  width: -moz-fit-content;
-  width: fit-content;
-  height: 20px;
-  background-color: #20282e;
-  padding: 10px 20px;
-  margin: 0 auto 10px;
-  border-radius: 6px;
-}
-.var-option.numbers input,
-.var-option.speed input{
-  vertical-align: text-top;
-}
-.var-numbers_value,
-.var-speed_value{
-  display: inline-block;
-  width: 18px;
-  text-align: right;
-}
 .var-splash{
   display: inline-block;
   width: 100%;
@@ -190,7 +144,7 @@
   color: white;
   font-size: 16px;
 }
-.var-splash .hacker{
+.var-splash .var-hacker{
   font-size: 64px;
   margin-bottom: 30px;
 }
@@ -220,7 +174,7 @@
   margin: 0 auto;
 }
 
-.var-minigame{
+.var-hack {
   margin: 0 auto 20px;
   width: 1536px;
   min-width: 1536px;
@@ -241,7 +195,7 @@
   color: white;
   font-size: 16px;
 }
-.var-splash .hacker{
+.var-splash .var-hacker{
   font-size: 65px;
   margin-bottom: 30px;
 }
@@ -309,60 +263,6 @@
 
 /* CHESS */
 
-.chess-streaks {
-  display: block;
-  margin: 40px auto;
-  text-align: center;
-  font-size: 30px;
-  font-weight: bold;
-  text-transform: uppercase;
-  color: white;
-  width: -moz-fit-content;
-  width: fit-content;
-  background-color: #028000;
-  padding: 12px;
-  border-radius: 18px;
-}
-.chess-best_time,
-.chess-time {
-  display: inline-block;
-  width: 100px;
-}
-.chess-streaks .fa {
-  padding: 0 10px;
-}
-.chess-options{
-  font-weight: bold;
-  text-align: center;
-  margin: 0 auto 10px;
-}
-.chess-option{
-  display: inline-block;
-  color: white;
-  font-weight: bold;
-  text-align: center;
-  width: -moz-fit-content;
-  width: fit-content;
-  height: 20px;
-  background-color: #20282e;
-  padding: 10px 20px;
-  margin: 0 auto 10px;
-  border-radius: 6px;
-}
-.chess-option.grid input,
-.chess-option.speed input{
-  vertical-align: text-top;
-}
-.chess-speed_value{
-  display: inline-block;
-  width: 18px;
-  text-align: right;
-}
-.chess-grid_value{
-  display: inline-block;
-  width: 40px;
-  text-align: center;
-}
 .chess-hack {
   margin: 0 auto 20px;
   width: 540px;
@@ -382,7 +282,7 @@
   color: white;
   font-size: 16px;
 }
-.chess-splash .hacker{
+.chess-splash .chess-hacker{
   font-size: 65px;
   margin-bottom: 30px;
 }

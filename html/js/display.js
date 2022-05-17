@@ -1,6 +1,6 @@
 
 window.addEventListener('message', function(event) {
-    switch (event.action) {
+    switch (event.data.action) {
         case "display":
 
             document.getElementById("display-container").classList.remove("fadeOut");

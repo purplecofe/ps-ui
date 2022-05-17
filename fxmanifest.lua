@@ -3,9 +3,6 @@ game 'gta5'
 
 description 'https://github.com/Project-Sloth/ps-ui'
 
-server_scripts {
- 'server/*.lua',
-}
 
 client_scripts {
   'client/*.lua',
@@ -16,7 +13,7 @@ ui_page {
 }
 
 files {
-    'html/js/*.js'
+    'html/js/*.js',
     'html/index.html',
     'html/style.css',
 }
