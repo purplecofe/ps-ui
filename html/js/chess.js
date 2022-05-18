@@ -59,7 +59,7 @@ function check() {
 
         setTimeout(function() { 
             $(".chess-hack").fadeOut();
-            reset()
+            resetChess()
             $.post(`https://${GetParentResourceName()}/chess-callback`, JSON.stringify({ 'success': false }));
         }, 4000);
         
@@ -72,7 +72,7 @@ function check() {
         document.querySelector('.chess-splash .chess-text').innerHTML = 'SUCCESS!';
         setTimeout(function() { 
             $(".chess-hack").fadeOut();
-            reset()
+            resetChess()
             $.post(`https://${GetParentResourceName()}/chess-callback`, JSON.stringify({ 'success': true }));
         }, 4000);
     }
@@ -122,7 +122,7 @@ function generateBestRoute(start_pos) {
     return route;
 }
 
-function reset() {
+function resetChess() {
     game_started = false;
     last_pos = 0;
 
@@ -215,7 +215,6 @@ window.addEventListener('message', (event) => {
         document.querySelector('.chess-splash .chess-text').innerHTML = 'Network Access Blocked... Override Required';
         $(".chess-hack").fadeIn()
         sleep(3000, function() {
-            console.log("here 1");
             document.querySelector('.chess-splash').classList.add('hidden');
             document.querySelector('.chess-groups').classList.remove('hidden', 'playing');
             game_started = true;
@@ -233,7 +232,7 @@ document.addEventListener("keydown", function(ev) {
             case 'Escape':
                 game_started = false;
                 game_playing = false;
-                reset()
+                resetChess()
                 $.post(`https://${GetParentResourceName()}/chess-callback`, JSON.stringify({ 'success': false }));
                 setTimeout(function() { $(".chess-hack").fadeOut() }, 500);
                 break;

@@ -1,7 +1,7 @@
 /* GLOBAL */
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 /* Display Text */
@@ -44,7 +44,6 @@
 
 
 /* CIRCLE */
-
 #circle {
   position: absolute;
   margin: 50px auto;
@@ -177,6 +176,12 @@
 }
 
 .var-hack {
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
   margin: 0 auto 20px;
   width: 1536px;
   min-width: 1536px;
@@ -266,6 +271,12 @@
 /* CHESS */
 
 .chess-hack {
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
   margin: 0 auto 20px;
   width: 540px;
   min-width: 540px;
@@ -276,7 +287,8 @@
   background-color: #232832;
   display: none;
 }
-.chess-splash{
+
+.chess-splash {
   display: inline-block;
   width: 100%;
   margin: 220px auto;
@@ -288,13 +300,13 @@
   font-size: 65px;
   margin-bottom: 30px;
 }
-.chess-groups{
+.chess-groups {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
   user-select: none;
 }
-.chess-group{
+.chess-group {
   width: 61px;
   height: 61px;
   border: 8px #232832 solid;
@@ -313,33 +325,24 @@
   color: #F00F18!important;
   background-color: #6acf66;
 }
-.chess-group.breathing{
+.chess-group.breathing {
   animation: 0.5s infinite alternate ease-in-out breathing-bg;
 }
 @keyframes breathing-bg {
   from{background-color: #094e1c;}
   to{background-color: #6acf66;}
 }
-.chess-groups.transparent .group{
+.chess-groups.transparent .chess-group{
   color: transparent;
 }
-.proper{
+.proper {
   border-image: linear-gradient(45deg, #ecc800, #564800) 1;
 }
-.good{
+.good {
   background-color: #3cec54;
 }
-.bad{
+.bad {
   background-color: #F00F18;
-}
-
-
-.restart{
-  text-align: center;
-}
-.btn_again {
-  padding: 6px 15px;
-  font-weight: bold;
 }
 
   
