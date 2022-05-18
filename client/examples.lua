@@ -1,6 +1,6 @@
 
 
--- CHESS HACK
+-- CHESS
 RegisterCommand("chess",function()
     exports['ps-ui']:ChessHack(function(success)
         if success then
@@ -11,7 +11,7 @@ RegisterCommand("chess",function()
     end, 20) --Hack duration will be 20 seconds
 end) 
 
--- VAR HACK
+-- VAR
 RegisterCommand("var", function()
     exports['ps-ui']:VarHack(function(success)
         if success then
@@ -22,7 +22,7 @@ RegisterCommand("var", function()
     end, 2, 3)
 end)
 
--- CIRCLE HACK
+-- CIRCLE
 RegisterCommand("circle", function()
     exports['ps-ui']:Circle(function(success)
         if success then
@@ -31,6 +31,17 @@ RegisterCommand("circle", function()
 			print("fail")
 		end
     end, 1, 500) -- NumberOfCircles, MS
+end)
+
+-- THERMITE
+RegisterCommand("thermite", function()
+    exports['ps-ui']:Thermite(function(success)
+        if success then
+            print("success")
+		else
+			print("fail")
+		end
+    end, 30, 7, 5) -- Time, Gridsize (5, 6, 7, 8, 9, 10), IncorrectBlocks
 end)
 
 -- DISPLAY TEXT

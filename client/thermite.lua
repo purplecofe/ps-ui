@@ -1,34 +1,28 @@
+local open = false
 
-local successCb
-local failCb
-local resultReceived = false
-
-RegisterNUICallback('ThermiteResult', function(data, cb)
-    SetNuiFocus(false, false)
-    resultReceived = true
-    if data.success then
-        successCb()
-    else
-        failCb()
-    end
+RegisterNUICallback('thermite-callback', function(data, cb)
+	SetNuiFocus(false, false)
+    Callbackk(data.success)
+    open = false
     cb('ok')
 end)
 
+function Thermite(callback, time, gridsize, wrong)
+    if time == nil then time = 10 end
+    if gridsize == nil then gridsize = 6 end
+    if wrong == nil then wrong = 3 end
 
-exports('thermite', function(correctBlocks, incorrectBlocks, timetoShow, timetoLose, success, fail)
-    -- correctBlocks = Number of correct blocks the player needs to click
-    -- incorrectBlocks = number of incorrect blocks after which the game will fail
-    -- timetoShow = time in secs for which the right blocks will be shown
-    -- timetoLose = maximum time after timetoshow expires for player to select the right blocks
-    resultReceived = false
-    successCb = success
-    failCb = fail
-    SetNuiFocus(true, true)
-    SendNUIMessage({
-        action = "thermite-start",
-        correct = correctBlocks,
-        incorrect = incorrectBlocks,
-        showtime = timetoShow,
-        losetime = timetoLose + timetoShow,
-    })
-end)
+    if not open then
+        Callbackk = callback
+        open = true
+        SendNUIMessage({
+            action = "thermite-start",
+            time = time,
+            gridsize = gridsize,
+            wrong = wrong,
+        })
+        SetNuiFocus(true, true)
+    end
+end
+
+exports("Thermite", Thermite)

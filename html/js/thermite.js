@@ -1,142 +1,172 @@
-window.timeBlocksShows = 0; //4.5sec
-window.timeUntilLose = 0; //12sec
-window.correctBlocksNum = 0;
-window.maxIncorrectBlocksNum = 0;
-window.allBlocksNum = 36;
-window.activateClicking = false;
+var timer_start, timer_game, timer_finish, timer_time, good_positions, wrong, wrong_max, right, speed, timerStart, positions;
+var game_started = false;
 
-ThermiteNew = {}
 
-$(document).ready(function(){
-    $(".thermite-container").hide()
-})
+var mode = 7;
+var mode_data = {};
+mode_data[5] = [10, '92px'];
+mode_data[6] = [14, '74px'];
+mode_data[7] = [18, '61px'];
+mode_data[8] = [20, '51px'];
+mode_data[9] = [24, '44px'];
+mode_data[10] = [28, '38px'];
 
-$(document).ready(function(){
-ThermiteNew.Start = function(data) {
 
-    $(".thermite-container").show()
-    $(".grid").removeClass("won");
 
-    $(".grid").removeClass("won");
-    $(".grid").removeClass("lost");
-    hideAllBlocks();
-    window.maxIncorrectBlocksNum = data.incorrect;
-    window.correctBlocksNum = data.correct;
-    window.timeBlocksShows = data.showtime; 
-    window.timeUntilLose = data.losetime; 
-    window.gridCorrectBlocks = generateRandomNumberBetween(1, 36, data.correct);
-    window.activateClicking = false;
-    showCorrectBlocks();
-    setTimeout(()=>{
-    hideAllBlocks();
-    window.activateClicking = true;
-    }, timeBlocksShows*1000);
-    setTimeout(()=>{
-        isGameForeited();
-    }, timeUntilLose*1000);
+function listener(ev){
+    if(!game_started) return;
+
+    if( good_positions.indexOf( parseInt(ev.target.dataset.position) ) === -1 ){
+        wrong++;
+        ev.target.classList.add('bad');
+    }else{
+        right++;
+        ev.target.classList.add('good');
+    }
+
+    ev.target.removeEventListener('mousedown', listener);
+
+    check();
 }
 
+function addListeners(){
+    document.querySelectorAll('.thermite-group').forEach(el => {
+        el.addEventListener('mousedown', listener);
+    });
+}
 
-window.addEventListener('message', function(event){
-var action = event.data.action;
-switch(action) {
-    case "thermite-start":
-        ThermiteNew.Start(event.data);
-        break;
+function check(){
+    if(wrong === wrong_max){
+        resetTimer();
+        game_started = false;
+        
+        let blocks = document.querySelectorAll('.thermite-group');
+        good_positions.forEach( pos => {
+            blocks[pos].classList.add('proper');
+        });
+        $.post(`https://${GetParentResourceName()}/thermite-callback`, JSON.stringify({ 'success': false }));
+        resetThermite();
+        return;
     }
+    if (right === mode_data[mode][0]) {
+      stopTimer();
+      $.post(`https://${GetParentResourceName()}/thermite-callback`, JSON.stringify({ 'success': true }));
+      resetThermite();
+    }
+}
+
+function resetThermite() {
+    game_started = false;
+
+    $(".thermite").fadeOut();
+
+    resetTimer();
+    clearTimeout(timer_start);
+    clearTimeout(timer_game);
+    clearTimeout(timer_finish);
+
+    document.querySelector('.thermite-splash').classList.remove('hidden');
+    document.querySelector('.thermite-groups').classList.add('hidden');
+
+    document.querySelectorAll('.thermite-group').forEach(el => { el.remove(); });
+
+}
+
+function startThermite() {
+    wrong = 0;
+    right = 0;
+
+    positions = range(0, Math.pow(mode, 2) - 1 );
+    shuffle(positions);
+    good_positions = positions.slice(0, mode_data[mode][0]);
+
+    let div = document.createElement('div');
+    div.classList.add('thermite-group');
+    div.style.width = mode_data[mode][1];
+    div.style.height = mode_data[mode][1];
+    const groups = document.querySelector('.thermite-groups');
+    for(let i=0; i < positions.length; i++){
+        let group = div.cloneNode();
+        group.dataset.position = i.toString();
+        groups.appendChild(group);
+    }
+
+    addListeners();
+
+    timer_start = sleep(2000, function(){
+        document.querySelector('.thermite-splash').classList.add('hidden');
+        document.querySelector('.thermite-groups').classList.remove('hidden');
+
+        let blocks = document.querySelectorAll('.thermite-group');
+        good_positions.forEach( pos => {
+            blocks[pos].classList.add('good');
+        });
+
+        timer_game = sleep(4000, function() {
+            document.querySelectorAll('.thermite-group.good').forEach(el => { el.classList.remove('good')});
+            game_started = true;
+
+            startTimer();
+            timer_finish = sleep((speed * 1000), function(){
+                game_started = false;
+                wrong = wrong_max;
+                check();
+            });
+        });
+    });
+}
+
+function startTimer() {
+    timerStart = new Date();
+    timer_time = setInterval(timer, 1);
+}
+
+function timer() {
+    let timerNow = new Date();
+    let timerDiff = new Date();
+    timerDiff.setTime(timerNow - timerStart);
+    let ms = timerDiff.getMilliseconds();
+    let sec = timerDiff.getSeconds();
+    if (ms < 10) {ms = "00"+ms;}else if (ms < 100) {ms = "0"+ms;}
+}
+
+function stopTimer() {
+    clearInterval(timer_time);
+}
+
+function resetTimer() {
+    clearInterval(timer_time);
+}
+
+window.addEventListener('message', (event) => {
+  if (event.data.action === 'thermite-start') {
+      speed = event.data.time
+      mode = event.data.gridsize
+      wrong_max = event.data.wrong 
+
+      $(".thermite").fadeIn();
+      document.querySelector('.thermite').classList.remove('hidden');
+      document.querySelector('.thermite-splash').classList.remove('hidden');
+      document.querySelector('.thermite-splash .thermite-text').innerHTML = 'Network Access Blocked... Override Required';
+      sleep(3000, function() {
+          startThermite();
+      });
+  }
 });
-})
 
-$(document.body).on("click", ".block", onBlockClick);
+document.addEventListener("keydown", function(ev) {
+  let key_pressed = ev.key;
+  let valid_keys = ['Escape'];
 
-function generateRandomNumberBetween(min=1,max=window.allBlocksNum,length = window.correctBlocksNum){
-  var arr = [];
-  while(arr.length < length){
-      var r = Math.floor(Math.random() * (max+1-min)) + min;
-      if(arr.indexOf(r) === -1) arr.push(r);
+  if (game_started && valid_keys.includes(key_pressed)) {
+      switch (key_pressed) {
+          case 'Escape':
+              game_started = false;
+              game_playing = false;
+              resetThermite()
+              $.post(`https://${GetParentResourceName()}/thermite-callback`, JSON.stringify({ 'success': false }));
+              setTimeout(function() { $(".thermite").fadeOut() }, 500);
+              break;
+      }
   }
-  return arr;
-}
-
-function onBlockClick(e){
-  if(!activateClicking){
-    return;
-  }
-  
-  let clickedBlock = e.target;
-  
-  let blockNum = clickedBlock.classList.value.match(/(?:block-)(\d+)/)[1];
-  blockNum = Number(blockNum);
-  let correctBlocks = window.gridCorrectBlocks;
-
-  let correct = correctBlocks.indexOf(blockNum) !== -1;
-  clickedBlock.classList.add("clicked");
-  if(correct){
-    clickedBlock.classList.remove("incorrect");
-    clickedBlock.classList.add("correct");
-  }
-  else{
-    clickedBlock.classList.add("incorrect");
-    clickedBlock.classList.remove("correct");
-  }
-checkWinOrLost();
-}
-
-function showCorrectBlocks(){
-  
-  $(".block").each((i,ele)=>{
-    let blockNum = ele.classList.value.match(/(?:block-)(\d+)/)[1];
-    blockNum = Number(blockNum);
-    let correctBlocks = window.gridCorrectBlocks;
-    let correct = correctBlocks.indexOf(blockNum) !== -1;
-    if(correct){
-      ele.classList.add("show");
-    }
-  });
-}
-function hideAllBlocks(){
-  $(".block").each((i,ele)=>{
-    ele.classList.remove("show");
-    ele.classList.remove("correct");
-    ele.classList.remove("incorrect");
-    ele.classList.remove("clicked");
-  });
-}
-
-function checkWinOrLost(){
-  if(isGameWon()){
-    hideAllBlocks()
-    window.activateClicking = false;
-    $(".thermite-container").hide()
-    $.post('http://ps-ui/ThermiteResult', JSON.stringify({
-        success: true
-    }));
-  }
-  if(isGameLost()){
-    hideAllBlocks();
-    $(".thermite-container").hide()
-    window.activateClicking = false;
-    $.post('http://ps-ui/ThermiteResult', JSON.stringify({
-        success: false
-    }));
-  }
- 
-}
-
-function isGameWon(){
-  return $(".correct").length >= (window.correctBlocksNum);
-}
-function isGameLost(){
-  return $(".incorrect").length >= window.maxIncorrectBlocksNum;
-};
-
-function isGameForeited(){
-    if (window.activateClicking ){
-        hideAllBlocks();
-        $(".thermite-container").hide()
-        window.activateClicking = false;
-        $.post('http://ps-ui/ThermiteResult', JSON.stringify({
-            success: false
-        }));
-    }       
-}
+});

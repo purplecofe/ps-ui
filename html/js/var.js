@@ -1,16 +1,6 @@
 let blocksInput;
 let speedInput;
 
-
-const shuffle = (arr) => {
-    for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        const temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
-    }
-}
-
 var timer_game, order;
 
 var game_started = false;
