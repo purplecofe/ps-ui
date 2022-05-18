@@ -9,6 +9,7 @@ end)
 
 function VarHack(callback, blocks, speed)
     if not open then
+        open = true
         Callbackk = callback
         SetNuiFocus(true, true)
         SendNUIMessage({

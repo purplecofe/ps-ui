@@ -69,7 +69,7 @@ var validate = (ev) => {
     }
 }
 
-var reset = () => {
+var resetVar = () => {
     clearTimeout(timer_game);
     
     document.querySelector('.var-splash').classList.add('hidden');
@@ -120,7 +120,7 @@ var newPos = (element) => {
     }).play();
 }
 
-var startVar = () => {
+let startVar = () => {
     order = 1;
     game_started = true;
     game_playing = false;
@@ -132,7 +132,7 @@ var startVar = () => {
     nums.forEach(function(num){
         let group = document.createElement('div');
         group.id = 'pos'+num;
-        group.classList.add('group','bg'+random(1,9));
+        group.classList.add('var-group','bg'+random(1,9));
         group.dataset.number = num.toString();
         group.style.top = random(10,755)+'px';
         group.style.left = random(10,1420)+'px';
@@ -150,7 +150,7 @@ var startVar = () => {
 }
 
 window.addEventListener('message', (event) => {
-    if (event.data.type === 'open') {
+    if (event.data.action === 'var-start') {
         blocksInput = event.data.blocks
         speedInput = event.data.speed
         $(".var-hack").fadeIn()

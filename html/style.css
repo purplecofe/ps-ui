@@ -149,7 +149,7 @@
   font-size: 64px;
   margin-bottom: 30px;
 }
-.var-splash .message{
+.var-splash .var-message{
   font-size: 24px;
 }
 .var-splash .sub_message{
@@ -177,10 +177,10 @@
 
 .var-hack {
 
-  position: absolute;
+  /* position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
 
   margin: 0 auto 20px;
   width: 1536px;
@@ -226,7 +226,7 @@
   line-height: 100px;
   border: 1px solid white;
 }
-.var-groups.playing .group{
+.var-groups.playing .var-group{
   color: transparent;
 }
 
