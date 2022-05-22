@@ -52,7 +52,7 @@ RegisterCommand("scrambler", function()
 		else
 			print("fail")
 		end
-    end, "greek", 30, 0) -- Type (alphabet, numeric, alphanumeric, greek, braille, runes), Time (Seconds), Mirrored (0: Normal, 1: Normal + Mirrored 2: Mirrored only )
+    end, "numeric", 30, 0) -- Type (alphabet, numeric, alphanumeric, greek, braille, runes), Time (Seconds), Mirrored (0: Normal, 1: Normal + Mirrored 2: Mirrored only )
 end)
 
 -- DISPLAY TEXT
@@ -77,6 +77,62 @@ RegisterCommand("status", function()
         status = false
         exports['ps-ui']:StatusHide()
     end
+end)
+
+
+RegisterCommand("cmenu", function()
+    exports['ps-ui']:CreateMenu({
+        {
+            header = "header1",
+            text = "text1",
+            icon = "fa-solid fa-circle",
+            color = "red",
+            event = "event:one",
+            args = {
+                1,
+                "two",
+                "3",
+            },
+            server = false,
+            
+        },
+        {
+            header = "header2",
+            text = "text3",
+            icon = "fa-solid fa-circle",
+            color = "blue",
+            event = "event:two",
+            args = {
+                1,
+                "two",
+                "3",
+            },
+            server = false,
+        },
+        {
+            header = "header3",
+            text = "text3",
+            icon = "fa-solid fa-circle",
+            color = "green",
+            event = "event:three",
+            args = {
+                1,
+                "two",
+                "3",
+            },
+            server = true,
+        },
+        {
+            header = "header4",
+            text = "text4",
+            event = "event:four",
+            args = {
+                1,
+                "two",
+                "3",
+            },
+        },
+    })
 end)
 
 
