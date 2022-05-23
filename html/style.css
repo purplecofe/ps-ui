@@ -170,6 +170,31 @@ body::-webkit-scrollbar {
   object-fit: scale-down;
 }
 
+.input {
+  position: absolute;
+  margin: 50px auto;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  background-color: #212529;
+  padding: 10px 10px 10px 10px;
+}
+
+.input-title {
+  color: white;
+  text-align: center;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.input-row {
+  padding-top: 25px;
+}
+
+.input-submit {
+  padding-top: 25px;
+  text-align: center;
+}
 
 /* CIRCLE */
 #circle {

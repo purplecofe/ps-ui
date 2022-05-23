@@ -7,7 +7,7 @@ RegisterNUICallback('scrambler-callback', function(data, cb)
     cb('ok')
 end)
 
-function Scrambler(callback, type, time, mirrored)
+local function Scrambler(callback, type, time, mirrored)
     if type == nil then type = "alphabet" end
     if time == nil then time = 10 end
     if mirrored == nil then mirrored = 0 end

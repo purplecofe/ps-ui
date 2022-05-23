@@ -7,7 +7,7 @@ RegisterNUICallback('numbermaze-callback', function(data, cb)
     cb('ok')
 end)
 
-function Maze(callback, speed)
+local function Maze(callback, speed)
     if not open then
         Callbackk = callback
         open = true

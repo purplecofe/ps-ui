@@ -7,7 +7,7 @@ RegisterNUICallback('thermite-callback', function(data, cb)
     cb('ok')
 end)
 
-function Thermite(callback, time, gridsize, wrong)
+local function Thermite(callback, time, gridsize, wrong)
     if time == nil then time = 10 end
     if gridsize == nil then gridsize = 6 end
     if wrong == nil then wrong = 3 end

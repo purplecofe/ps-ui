@@ -135,6 +135,21 @@ RegisterCommand("cmenu", function()
     })
 end)
 
+RegisterCommand("input", function()
+    exports['ps-ui']:Input({
+        title = "Test",
+        inputs = {
+            {
+                type = "text",
+                placeholder = "test2"
+            },
+            {
+                type = "password",
+                placeholder = "password"
+            },
+        }
+    })
+end)
 
 
 

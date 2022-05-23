@@ -2,7 +2,7 @@ local Result = nil
 local NUI_status = false
 
 
-function Circle(circles, seconds, callback)
+local function Circle(circles, seconds, callback)
     Result = nil
     NUI_status = true
     SendNUIMessage({

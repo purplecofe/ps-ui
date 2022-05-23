@@ -3,6 +3,8 @@ game 'gta5'
 
 description 'https://github.com/Project-Sloth/ps-ui'
 
+credits 'https://github.com/sharkiller/nopixel_minigame'
+
 
 client_scripts {
   'client/*.lua',

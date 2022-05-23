@@ -7,7 +7,7 @@ RegisterNUICallback('var-callback', function(data, cb)
     cb('ok')
 end)
 
-function VarHack(callback, blocks, speed)
+local function VarHack(callback, blocks, speed)
     if not open then
         open = true
         Callbackk = callback
