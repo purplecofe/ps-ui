@@ -4,6 +4,17 @@
   display: none !important;
 }
 
+.proper {
+  border-image: linear-gradient(45deg, #ecc800, #564800) 1 !important;
+}
+.good {
+  background-color: #3cec54 !important;
+}
+.bad {
+  background-color: #F00F18 !important;
+}
+
+
 /* Display Text */
 
 #display-container{
@@ -81,20 +92,38 @@ body::-webkit-scrollbar {
   overflow: hidden;
   padding: 0.50rem;
   display: flex;
-  flex-direction: column;
-  display: grid;
-  grid-column-gap: 50px;  
-  border-radius: 2px 2px 2px 2px;
+  flex-direction: row; 
+  border-radius: 3px 3px 3px 3px;
 }
+
 .item:hover{
   background-color: #424b53;
   border-radius: 2px 2px 2px 2px;
 }
-.text {
+
+.menu-icon {
+  color: white;
+  flex-direction: row;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.5rem;
+  overflow: hidden;
+  font-weight: 300;
+  min-width: 25px;
+
+  -moz-user-select: none; 
+  -webkit-user-select: none; 
+  -ms-user-select:none; 
+  user-select:none;
+  -o-user-select:none;
+
+}
+
+.menu-text {
+  padding-left: 15px;
   color: white;
   flex-direction: column;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 0.8rem;
+  font-size: 1.0rem;
   overflow: hidden;
   font-weight: 300;
 
@@ -126,10 +155,7 @@ body::-webkit-scrollbar {
   -o-user-select:none;
 }
 
-.menu-icon {
-  margin: auto;
-  width: 50%;
-}
+
 
 #imageHover {
   position: absolute;
@@ -269,10 +295,6 @@ body::-webkit-scrollbar {
 
 .var-hack {
 
-  /* position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%); */
 
   margin: 0 auto 20px;
   width: 1536px;
@@ -360,9 +382,9 @@ body::-webkit-scrollbar {
 }
 
 
-/* CHESS */
+/* numbermaze */
 
-.chess-hack {
+.numbermaze-hack {
 
   position: absolute;
   left: 50%;
@@ -380,7 +402,7 @@ body::-webkit-scrollbar {
   display: none;
 }
 
-.chess-splash {
+.numbermaze-splash {
   display: inline-block;
   width: 100%;
   margin: 220px auto;
@@ -388,17 +410,17 @@ body::-webkit-scrollbar {
   color: white;
   font-size: 16px;
 }
-.chess-splash .chess-hacker{
+.numbermaze-splash .numbermaze-hacker{
   font-size: 65px;
   margin-bottom: 30px;
 }
-.chess-groups {
+.numbermaze-groups {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
   user-select: none;
 }
-.chess-group {
+.numbermaze-group {
   width: 61px;
   height: 61px;
   border: 8px #232832 solid;
@@ -409,32 +431,23 @@ body::-webkit-scrollbar {
   text-align: center;
   line-height: 60px;
 }
-.chess-group:first-child {
+.numbermaze-group:first-child {
   color: #008001 !important;
   background-color: #6acf66;
 }
-.chess-group:last-child {
+.numbermaze-group:last-child {
   color: #F00F18!important;
   background-color: #6acf66;
 }
-.chess-group.breathing {
+.numbermaze-group.breathing {
   animation: 0.5s infinite alternate ease-in-out breathing-bg;
 }
 @keyframes breathing-bg {
   from{background-color: #094e1c;}
   to{background-color: #6acf66;}
 }
-.chess-groups.transparent .chess-group{
+.numbermaze-groups.transparent .numbermaze-group{
   color: transparent;
-}
-.proper {
-  border-image: linear-gradient(45deg, #ecc800, #564800) 1;
-}
-.good {
-  background-color: #3cec54;
-}
-.bad {
-  background-color: #F00F18;
 }
 
 

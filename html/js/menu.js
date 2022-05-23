@@ -11,15 +11,13 @@ function CreateMenu(data) {
 
         e = $(`
             <div class="item" onclick="MenuSelect(${i})">
-                <div class="row">
-                    <div class="col-1 menu-icon">
+                    <div class="menu-icon">
                         <span style="color:${color};"><i class="${icon}"></i></span>
                     </div>
-                    <div class="col">
+                    <div class="menu-text">
                         <div class="header">${header}</div>
                         <div class="text">${text}</div>
                     </div>
-                </div>
             </div>`
         );
         Items[i] = data[i];

@@ -63,15 +63,15 @@ document.addEventListener("keydown", function(ev) {
                 current_pos %= 80;
                 break;
             case 'Enter':
-                check();
+                CheckScrambler();
                 return;
         }
         drawPosition();
     }
 });
 
-function check(){
-    stopTimer();
+function CheckScrambler(){
+    StopScramblerTimer();
 
     let current_attempt = (current_pos+codes_pos);
     current_attempt %= 80;
@@ -151,7 +151,7 @@ let charGroupsSelected = () => {
 function resetScrambler(restart = true){
     game_started = false;
 
-    resetTimer();
+    ResetScramblerTimer();
     clearTimeout(timer_start);
     clearTimeout(timer_game);
     clearTimeout(timer_finish);
@@ -159,11 +159,11 @@ function resetScrambler(restart = true){
 
     if(restart){
         document.querySelector('.scrambler .scrambler-hack').classList.add('hidden');
-        startScrambler();
+        StartScrambler();
     }
 }
 
-function startScrambler() {
+function StartScrambler() {
     $(".scrambler").fadeIn();
     codes_pos = 0;
     current_pos = 43;
@@ -216,22 +216,22 @@ function startScrambler() {
 
         game_started = true;
 
-        startTimer(game_time);
+        StartScramblerTimer(game_time);
         game_time *= 1000;
         
         timer_finish = sleep(game_time, function() {
             game_started = false;
-            check();
+            CheckScrambler();
         });
     });
 }
 
-function startTimer(timeout){
+function StartScramblerTimer(timeout){
     timerStart = new Date();
-    timer_time = setInterval(timer, 1, timeout);
+    timer_time = setInterval(ScramblerTimer, 1, timeout);
 }
 
-function timer(timeout){
+function ScramblerTimer(timeout){
     let timerNow = new Date();
     let timerDiff = new Date();
     timerDiff.setTime(timerNow - timerStart);
@@ -243,10 +243,10 @@ function timer(timeout){
     if (ms2 < 10) ms2 = "0"+ms2;
     document.querySelector('.scrambler-hack .scrambler-timer').innerHTML = (timeout-1-sec)+"."+ms2;
 }
-function stopTimer(){
+function StopScramblerTimer(){
     clearInterval(timer_time);
 }
-function resetTimer(){
+function ResetScramblerTimer(){
     clearInterval(timer_time);
 }
 
@@ -257,6 +257,6 @@ window.addEventListener('message', (event) => {
         game_type = event.data.type
         game_mirrored = event.data.mirrored
         
-        startScrambler();
+        StartScrambler();
     }
   });

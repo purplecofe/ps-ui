@@ -1,8 +1,8 @@
 
 
--- CHESS
-RegisterCommand("chess",function()
-    exports['ps-ui']:ChessHack(function(success)
+-- Number Maze
+RegisterCommand("maze",function()
+    exports['ps-ui']:Maze(function(success)
         if success then
             print("success")
 		else
@@ -134,6 +134,7 @@ RegisterCommand("cmenu", function()
         },
     })
 end)
+
 
 
 

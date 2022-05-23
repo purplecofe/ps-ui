@@ -2,15 +2,14 @@ var timer_start, timer_finish, timer_hide, timer_time, good_positions, best_rout
 var game_started = false;
 
 
-function listener(ev) {
+function MazeListener(ev) {
     if(!game_started) return;
     let pos_clicked = parseInt(ev.target.dataset.position);
     if(pos_clicked === 0) return;
     
     if(last_pos === 0){
-        document.querySelectorAll('.chess-group.breathing')
-            .forEach(el => { el.classList.remove('breathing') });
-        document.querySelector('.chess-groups').classList.add('transparent');
+        document.querySelectorAll('.numbermaze-group.breathing').forEach(el => { el.classList.remove('breathing') });
+        document.querySelector('.numbermaze-groups').classList.add('transparent');
         
         if(pos_clicked === blinking_pos || pos_clicked === blinking_pos * 7){
             last_pos = pos_clicked;
@@ -20,7 +19,7 @@ function listener(ev) {
             ev.target.classList.add('bad');
         }
     }else{
-        let pos_jumps = parseInt(document.querySelectorAll('.chess-group')[last_pos].innerText, 10);
+        let pos_jumps = parseInt(document.querySelectorAll('.numbermaze-group')[last_pos].innerText, 10);
         let maxV = maxVertical(last_pos);
         let maxH = maxHorizontal(last_pos);
         
@@ -36,44 +35,43 @@ function listener(ev) {
         }
     }
 
-    check();
+    CheckMaze();
 }
 
-function addListeners() {
-    document.querySelectorAll('.chess-group').forEach(el => {
-        el.addEventListener('mousedown', listener);
+function AddMazeListeners() {
+    document.querySelectorAll('.numbermaze-group').forEach(el => {
+        el.addEventListener('mousedown', MazeListener);
     });
 }
 
-function check() {
+function CheckMaze() {
     if (wrong === 3) {
-        resetTimer();
+        ResetMazeTimer();
         game_started = false;
 
-        document.querySelector('.chess-groups').classList.remove('transparent');
-        let blocks = document.querySelectorAll('.chess-group');
+        let blocks = document.querySelectorAll('.numbermaze-group');
         good_positions.push(48);
         good_positions.forEach( pos => {
             blocks[pos].classList.add('proper');
         });
-
+        document.querySelector('.numbermaze-groups').classList.remove('transparent');
         setTimeout(function() { 
-            $(".chess-hack").fadeOut();
-            resetChess()
-            $.post(`https://${GetParentResourceName()}/chess-callback`, JSON.stringify({ 'success': false }));
+            $(".numbermaze-hack").fadeOut();
+            ResetNumberMaze();
+            $.post(`https://${GetParentResourceName()}/numbermaze-callback`, JSON.stringify({ 'success': false }));
         }, 4000);
         
         return;
     }
     if (last_pos === 48) {
-        stopTimer();
-        document.querySelector('.chess-groups').classList.add('hidden');
-        document.querySelector('.chess-splash').classList.remove('hidden');
-        document.querySelector('.chess-splash .chess-text').innerHTML = 'SUCCESS!';
+        StopMazeTimer();
+        document.querySelector('.numbermaze-groups').classList.add('hidden');
+        document.querySelector('.numbermaze-splash').classList.remove('hidden');
+        document.querySelector('.numbermaze-splash .numbermaze-text').innerHTML = 'SUCCESS!';
         setTimeout(function() { 
-            $(".chess-hack").fadeOut();
-            resetChess()
-            $.post(`https://${GetParentResourceName()}/chess-callback`, JSON.stringify({ 'success': true }));
+            $(".numbermaze-hack").fadeOut();
+            ResetNumberMaze();
+            $.post(`https://${GetParentResourceName()}/numbermaze-callback`, JSON.stringify({ 'success': true }));
         }, 4000);
     }
 }
@@ -122,19 +120,20 @@ function generateBestRoute(start_pos) {
     return route;
 }
 
-function resetChess() {
+function ResetNumberMaze() {
     game_started = false;
     last_pos = 0;
 
-    resetTimer();
+    ResetMazeTimer();
     clearTimeout(timer_start);
     clearTimeout(timer_hide);
     clearTimeout(timer_finish);
 
-    document.querySelectorAll('.chess-group').forEach(el => { el.remove(); });
+    document.querySelector('.numbermaze-groups').classList.remove('transparent');
+    document.querySelectorAll('.numbermaze-group').forEach(el => { el.remove(); });
 }
 
-function startChess() {
+function StartNumberMaze() {
     wrong = 0;
     last_pos = 0;
     
@@ -143,24 +142,26 @@ function startChess() {
     good_positions = Object.keys(best_route);
 
     let div = document.createElement('div');
-    div.classList.add('chess-group');
-    const groups = document.querySelector('.chess-groups');
+    div.classList.add('numbermaze-group');
+    const groups = document.querySelector('.numbermaze-groups');
     for(let i=0; i < 49; i++){
         let group = div.cloneNode();
         group.dataset.position = i.toString();
         let text;
         switch(i){
             case 0:
-                text = '&#xf796;';break;
+                text = '<div class="fa-solid fa-ethernet"></div>';
+                break;
             case 48:
-                text = '&#xf6ff;';break;
+                text = '<div class="fa-solid fa-network-wired"></div>';
+                break;
             case blinking_pos:
-            case (blinking_pos*7):
+            case (blinking_pos * 7):
                 group.classList.add('breathing');
-                text = random(1,4);
+                text = random(1, 4);
                 break;
             default:
-                text = random(1,5);
+                text = random(1, 5);
         }
         if( good_positions.includes( i.toString() ) ){
             text = best_route[i];
@@ -168,30 +169,29 @@ function startChess() {
         group.innerHTML = text;
         groups.appendChild(group);
     }
-    addListeners();
-
+    AddMazeListeners();
     timer_start = sleep(2000, function(){
-        document.querySelector('.chess-groups').classList.remove('hidden');
+        document.querySelector('.numbermaze-groups').classList.remove('hidden');
         
         timer_hide = sleep(6000, function(){
-            document.querySelector('.chess-groups').classList.add('transparent');
+            document.querySelector('.numbermaze-groups').classList.add('transparent');
         });
         
-        startTimer();
+        StartMazeTimer();
         timer_finish = sleep((speed * 1000), function(){
             game_started = false;
             wrong = 3;
-            check();
+            CheckMaze();
         });
     });
 }
 
-function startTimer() {
+function StartMazeTimer() {
     timerStart = new Date();
-    timer_time = setInterval(timer,1);
+    timer_time = setInterval(MazeTimer, 1);
 }
 
-function timer() {
+function MazeTimer() {
     let timerNow = new Date();
     let timerDiff = new Date();
     timerDiff.setTime(timerNow - timerStart);
@@ -200,25 +200,25 @@ function timer() {
     if (ms < 10) {ms = "00"+ms;}else if (ms < 100) {ms = "0"+ms;}
 }
 
-function stopTimer() {
+function StopMazeTimer() {
     clearInterval(timer_time);
 }
 
-function resetTimer() {
+function ResetMazeTimer() {
     clearInterval(timer_time);
 }
 
 window.addEventListener('message', (event) => {
-    if (event.data.action === 'chess-start') {
+    if (event.data.action === 'numbermaze-start') {
         speed = event.data.speed
-        document.querySelector('.chess-splash').classList.remove('hidden');
-        document.querySelector('.chess-splash .chess-text').innerHTML = 'Network Access Blocked... Override Required';
-        $(".chess-hack").fadeIn()
+        document.querySelector('.numbermaze-splash').classList.remove('hidden');
+        document.querySelector('.numbermaze-splash .numbermaze-text').innerHTML = 'Network Access Blocked... Override Required';
+        $(".numbermaze-hack").fadeIn()
         sleep(3000, function() {
-            document.querySelector('.chess-splash').classList.add('hidden');
-            document.querySelector('.chess-groups').classList.remove('hidden', 'playing');
+            document.querySelector('.numbermaze-splash').classList.add('hidden');
+            document.querySelector('.numbermaze-groups').classList.remove('hidden', 'playing');
             game_started = true;
-            startChess();
+            StartNumberMaze();
         });
     }
 });
@@ -232,9 +232,9 @@ document.addEventListener("keydown", function(ev) {
             case 'Escape':
                 game_started = false;
                 game_playing = false;
-                resetChess()
-                $.post(`https://${GetParentResourceName()}/chess-callback`, JSON.stringify({ 'success': false }));
-                setTimeout(function() { $(".chess-hack").fadeOut() }, 500);
+                ResetNumberMaze();
+                $.post(`https://${GetParentResourceName()}/numbermaze-callback`, JSON.stringify({ 'success': false }));
+                setTimeout(function() { $(".numbermaze-hack").fadeOut() }, 500);
                 break;
         }
     }

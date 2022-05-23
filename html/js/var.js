@@ -17,7 +17,7 @@ document.addEventListener("keydown", function(ev) {
                 game_playing = false;
                 ev.target.classList.add('bad');
                 destroy()
-                $.post('https://pu-ui/var-callback', JSON.stringify({ 'success': false }));
+                $.post('https://ps-ui/var-callback', JSON.stringify({ 'success': false }));
                 setTimeout(function() { $(".var-hack").fadeOut() }, 500);
                 break;
         }
@@ -40,7 +40,7 @@ var validate = (ev) => {
                 $(".var-hack").fadeOut();
                 document.querySelector(".var-splash .var-text").innerHTML = 'PREPARING INTERFACE...';
                 destroy()
-                $.post('https://pu-ui/var-callback', JSON.stringify({ 'success': true }));
+                $.post('https://ps-ui/var-callback', JSON.stringify({ 'success': true }));
             }, 2000);
         }
     } else {
@@ -54,7 +54,7 @@ var validate = (ev) => {
         setTimeout(function() { 
             $(".var-hack").fadeOut();
             destroy();
-            $.post('https://pu-ui/var-callback', JSON.stringify({ 'success': false }));
+            $.post('https://ps-ui/var-callback', JSON.stringify({ 'success': false }));
         }, 4000);
     }
 }

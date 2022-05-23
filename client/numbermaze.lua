@@ -1,22 +1,22 @@
 local open = false
 
-RegisterNUICallback('chess-callback', function(data, cb)
+RegisterNUICallback('numbermaze-callback', function(data, cb)
 	SetNuiFocus(false, false)
     Callbackk(data.success)
     open = false
     cb('ok')
 end)
 
-function ChessHack(callback, speed)
+function Maze(callback, speed)
     if not open then
         Callbackk = callback
         open = true
         SendNUIMessage({
-            action = "chess-start",
+            action = "numbermaze-start",
             speed = speed,
         })
         SetNuiFocus(true, true)
     end
 end
 
-exports("ChessHack", ChessHack)
+exports("Maze", Maze)

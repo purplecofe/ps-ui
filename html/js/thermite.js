@@ -13,7 +13,7 @@ mode_data[10] = [28, '38px'];
 
 
 
-function listener(ev){
+function ThermiteListener(ev){
     if(!game_started) return;
 
     if( good_positions.indexOf( parseInt(ev.target.dataset.position) ) === -1 ){
@@ -24,43 +24,43 @@ function listener(ev){
         ev.target.classList.add('good');
     }
 
-    ev.target.removeEventListener('mousedown', listener);
+    ev.target.removeEventListener('mousedown', ThermiteListener);
 
-    check();
+    CheckThermite();
 }
 
-function addListeners(){
+function AddThermiteListeners(){
     document.querySelectorAll('.thermite-group').forEach(el => {
-        el.addEventListener('mousedown', listener);
+        el.addEventListener('mousedown', ThermiteListener);
     });
 }
 
-function check(){
+function CheckThermite(){
     if(wrong === wrong_max){
-        resetTimer();
+        ResetThermiteTimer();
         game_started = false;
         
         let blocks = document.querySelectorAll('.thermite-group');
         good_positions.forEach( pos => {
             blocks[pos].classList.add('proper');
         });
-        $.post(`https://${GetParentResourceName()}/thermite-callback`, JSON.stringify({ 'success': false }));
-        resetThermite();
+        $.post(`https://ps-ui/thermite-callback`, JSON.stringify({ 'success': false }));
+        ResetThermite();
         return;
     }
     if (right === mode_data[mode][0]) {
-      stopTimer();
-      $.post(`https://${GetParentResourceName()}/thermite-callback`, JSON.stringify({ 'success': true }));
-      resetThermite();
+      StopThermiteTimer();
+      $.post(`https://ps-ui/thermite-callback`, JSON.stringify({ 'success': true }));
+      ResetThermite();
     }
 }
 
-function resetThermite() {
+function ResetThermite() {
     game_started = false;
 
     $(".thermite").fadeOut();
 
-    resetTimer();
+    ResetThermiteTimer();
     clearTimeout(timer_start);
     clearTimeout(timer_game);
     clearTimeout(timer_finish);
@@ -72,7 +72,7 @@ function resetThermite() {
 
 }
 
-function startThermite() {
+function StartThermite() {
     wrong = 0;
     right = 0;
 
@@ -91,7 +91,7 @@ function startThermite() {
         groups.appendChild(group);
     }
 
-    addListeners();
+    AddThermiteListeners();
 
     timer_start = sleep(2000, function(){
         document.querySelector('.thermite-splash').classList.add('hidden');
@@ -106,22 +106,22 @@ function startThermite() {
             document.querySelectorAll('.thermite-group.good').forEach(el => { el.classList.remove('good')});
             game_started = true;
 
-            startTimer();
+            StartThermiteTimer();
             timer_finish = sleep((speed * 1000), function(){
                 game_started = false;
                 wrong = wrong_max;
-                check();
+                CheckThermite();
             });
         });
     });
 }
 
-function startTimer() {
+function StartThermiteTimer() {
     timerStart = new Date();
-    timer_time = setInterval(timer, 1);
+    timer_time = setInterval(ThermiteTimer, 1);
 }
 
-function timer() {
+function ThermiteTimer() {
     let timerNow = new Date();
     let timerDiff = new Date();
     timerDiff.setTime(timerNow - timerStart);
@@ -130,11 +130,11 @@ function timer() {
     if (ms < 10) {ms = "00"+ms;}else if (ms < 100) {ms = "0"+ms;}
 }
 
-function stopTimer() {
+function StopThermiteTimer() {
     clearInterval(timer_time);
 }
 
-function resetTimer() {
+function ResetThermiteTimer() {
     clearInterval(timer_time);
 }
 
@@ -149,7 +149,7 @@ window.addEventListener('message', (event) => {
       document.querySelector('.thermite-splash').classList.remove('hidden');
       document.querySelector('.thermite-splash .thermite-text').innerHTML = 'Network Access Blocked... Override Required';
       sleep(3000, function() {
-          startThermite();
+          StartThermite();
       });
   }
 });
@@ -163,8 +163,8 @@ document.addEventListener("keydown", function(ev) {
           case 'Escape':
               game_started = false;
               game_playing = false;
-              resetThermite()
-              $.post(`https://${GetParentResourceName()}/thermite-callback`, JSON.stringify({ 'success': false }));
+              ResetThermite()
+              $.post(`https://ps-ui/thermite-callback`, JSON.stringify({ 'success': false }));
               setTimeout(function() { $(".thermite").fadeOut() }, 500);
               break;
       }
