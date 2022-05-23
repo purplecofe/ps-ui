@@ -136,7 +136,7 @@ RegisterCommand("cmenu", function()
 end)
 
 RegisterCommand("input", function()
-    exports['ps-ui']:Input({
+    local input = exports['ps-ui']:Input({
         title = "Test",
         inputs = {
             {
@@ -147,8 +147,15 @@ RegisterCommand("input", function()
                 type = "password",
                 placeholder = "password"
             },
+            {
+                type = "number",
+                placeholder = "666"
+            },
         }
     })
+    for k,v in pairs(input) do 
+        print(k,v)
+    end
 end)
 
 
