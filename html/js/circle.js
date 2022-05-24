@@ -1,24 +1,24 @@
-var circle_started = false;
-var canvas = document.getElementById("circle");
-var ctx = canvas.getContext("2d");
+let circle_started = false;
+let canvas = document.getElementById("circle");
+let ctx = canvas.getContext("2d");
 
-var W = canvas.width;
-var H = canvas.height;
-var degrees = 0;
-var new_degrees = 0;
-var time = 0;
-var color = "#B977E9";
-var txtcolor = "#ffffff";
-var bgcolor = "#2B312B";
-var bgcolor2 = "#781AA1";
-var bgcolor3 = "#00ff00";
-var key_to_press;
-var g_start, g_end;
-var animation_loop;
+let W = canvas.width;
+let H = canvas.height;
+let degrees = 0;
+let new_degrees = 0;
+let time = 0;
+let color = "#B977E9";
+let txtcolor = "#ffffff";
+let bgcolor = "#2B312B";
+let bgcolor2 = "#781AA1";
+let bgcolor3 = "#00ff00";
+let key_to_press;
+let g_start, g_end;
+let animation_loop;
 
 
-var needed = 4;
-var streak = 0;
+let needed = 4;
+let streak = 0;
 
 
 function getRandomInt(min, max) {

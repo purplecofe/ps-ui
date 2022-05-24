@@ -23,7 +23,8 @@ local function Thermite(cb, time, gridsize, wrong)
             wrong = wrong,
         })
         SetNuiFocus(true, true)
-        cb = Citizen.Await(p)
+        local result = Citizen.Await(p)
+        cb(result)
     end
 end
 

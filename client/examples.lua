@@ -30,7 +30,7 @@ RegisterCommand("circle", function()
 		else
 			print("fail")
 		end
-    end, 1, 500) -- NumberOfCircles, MS
+    end, 2, 20) -- NumberOfCircles, MS
 end)
 
 -- THERMITE

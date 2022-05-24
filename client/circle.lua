@@ -1,35 +1,30 @@
-local Result = nil
-local NUI_status = false
+local p = nil
 
 
-local function Circle(circles, seconds, callback)
-    Result = nil
-    NUI_status = true
+
+local function Circle(cb, circles, seconds)
+    p = promise.new()
     SendNUIMessage({
         action = 'circle-start',
         circles = circles,
 		time = seconds,
     })
-    while NUI_status do
-        Wait(5)
-        SetNuiFocus(NUI_status, false)
-    end
-    Wait(100)
-    SetNuiFocus(false, false)
-    return Result
+    SetNuiFocus(true, true)
+    local result = Citizen.Await(p)
+    cb(result)
 end
 exports("Circle", Circle)
 
-RegisterNUICallback('circle-fail', function()
-        Result = false
-        Wait(100)
-        NUI_status = false
+RegisterNUICallback('circle-fail', function(data, cb)
+    p:resolve(false)
+    p = nil
+    SetNuiFocus(false, false)
+    cb('ok')
 end)
 
-RegisterNUICallback('circle-success', function()
-	Result = true
-	Wait(100)
-	NUI_status = false
+RegisterNUICallback('circle-success', function(data, cb)
+    p:resolve(true)
+    p = nil
     SetNuiFocus(false, false)
-    return Result
+    cb('ok')
 end)
