@@ -1,5 +1,5 @@
 var timer_start, timer_game, timer_finish, timer_time, timer_hide, correct_pos, to_find, codes, sets, timerStart;
-var game_started = false;
+var scrambler_started = false;
 
 var game_time, game_type, game_mirrored;
 
@@ -40,7 +40,7 @@ document.addEventListener("keydown", function(ev) {
     let key_pressed = ev.key;
     let valid_keys = ['a','w','s','d','ArrowUp','ArrowDown','ArrowRight','ArrowLeft','Enter'];
 
-    if(game_started && valid_keys.includes(key_pressed) ){
+    if(scrambler_started && valid_keys.includes(key_pressed) ){
         switch(key_pressed){
             case 'w':
             case 'ArrowUp':
@@ -76,7 +76,7 @@ function CheckScrambler(){
     let current_attempt = (current_pos+codes_pos);
     current_attempt %= 80;
 
-    if(game_started && current_attempt === correct_pos){
+    if(scrambler_started && current_attempt === correct_pos){
         $.post(`https://${GetParentResourceName()}/scrambler-callback`, JSON.stringify({ 'success': true }));
         setTimeout(function() { $(".scrambler").fadeOut() }, 500);
         resetScrambler();
@@ -149,7 +149,7 @@ let charGroupsSelected = () => {
 }
 
 function resetScrambler(restart = true){
-    game_started = false;
+    scrambler_started = false;
 
     ResetScramblerTimer();
     clearTimeout(timer_start);
@@ -214,13 +214,13 @@ function StartScrambler() {
 
         timer_game = setInterval(moveCodes, 1500);
 
-        game_started = true;
+        scrambler_started = true;
 
         StartScramblerTimer(game_time);
         game_time *= 1000;
         
         timer_finish = sleep(game_time, function() {
-            game_started = false;
+            scrambler_started = false;
             CheckScrambler();
         });
     });

@@ -1,5 +1,5 @@
 var timer_start, timer_game, timer_finish, timer_time, good_positions, wrong, wrong_max, right, speed, timerStart, positions;
-var game_started = false;
+var thermite_started = false;
 
 
 var mode = 7;
@@ -14,7 +14,7 @@ mode_data[10] = [28, '38px'];
 
 
 function ThermiteListener(ev){
-    if(!game_started) return;
+    if(!thermite_started) return;
 
     if( good_positions.indexOf( parseInt(ev.target.dataset.position) ) === -1 ){
         wrong++;
@@ -35,10 +35,10 @@ function AddThermiteListeners(){
     });
 }
 
-function CheckThermite(){
+function CheckThermite() {
     if(wrong === wrong_max){
         ResetThermiteTimer();
-        game_started = false;
+        thermite_started = false;
         
         let blocks = document.querySelectorAll('.thermite-group');
         good_positions.forEach( pos => {
@@ -56,7 +56,7 @@ function CheckThermite(){
 }
 
 function ResetThermite() {
-    game_started = false;
+    thermite_started = false;
 
     $(".thermite").fadeOut();
 
@@ -104,11 +104,11 @@ function StartThermite() {
 
         timer_game = sleep(4000, function() {
             document.querySelectorAll('.thermite-group.good').forEach(el => { el.classList.remove('good')});
-            game_started = true;
+            thermite_started = true;
 
             StartThermiteTimer();
             timer_finish = sleep((speed * 1000), function(){
-                game_started = false;
+                thermite_started = false;
                 wrong = wrong_max;
                 CheckThermite();
             });
@@ -142,6 +142,7 @@ window.addEventListener('message', (event) => {
   if (event.data.action === 'thermite-start') {
       speed = event.data.time
       mode = event.data.gridsize
+      if (mode < 7 || mode > 10) mode = 7;
       wrong_max = event.data.wrong 
 
       $(".thermite").fadeIn();
@@ -158,14 +159,15 @@ document.addEventListener("keydown", function(ev) {
   let key_pressed = ev.key;
   let valid_keys = ['Escape'];
 
-  if (game_started && valid_keys.includes(key_pressed)) {
+  if (thermite_started && valid_keys.includes(key_pressed)) {
       switch (key_pressed) {
           case 'Escape':
-              game_started = false;
+              console.log("here")
+              thermite_started = false;
               game_playing = false;
-              ResetThermite()
+              ResetThermite();
               $.post(`https://ps-ui/thermite-callback`, JSON.stringify({ 'success': false }));
-              setTimeout(function() { $(".thermite").fadeOut() }, 500);
+              $(".thermite").fadeOut();
               break;
       }
   }

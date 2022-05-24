@@ -1,19 +1,20 @@
 local open = false
+local p = nil
 
 RegisterNUICallback('thermite-callback', function(data, cb)
 	SetNuiFocus(false, false)
-    Callbackk(data.success)
+    p:resolve(data.success)
+    p = nil
     open = false
     cb('ok')
 end)
 
-local function Thermite(callback, time, gridsize, wrong)
-    if time == nil then time = 10 end
-    if gridsize == nil then gridsize = 6 end
-    if wrong == nil then wrong = 3 end
-
+local function Thermite(cb, time, gridsize, wrong)
     if not open then
-        Callbackk = callback
+        p = promise.new()
+        if time == nil then time = 10 end
+        if gridsize == nil then gridsize = 6 end
+        if wrong == nil then wrong = 3 end
         open = true
         SendNUIMessage({
             action = "thermite-start",
@@ -22,6 +23,7 @@ local function Thermite(callback, time, gridsize, wrong)
             wrong = wrong,
         })
         SetNuiFocus(true, true)
+        cb = Citizen.Await(p)
     end
 end
 

@@ -1,23 +1,24 @@
-let canvas = document.getElementById("circle");
-let ctx = canvas.getContext("2d");
+var circle_started = false;
+var canvas = document.getElementById("circle");
+var ctx = canvas.getContext("2d");
 
-let W = canvas.width;
-let H = canvas.height;
-let degrees = 0;
-let new_degrees = 0;
-let time = 0;
-let color = "#B977E9";
-let txtcolor = "#ffffff";
-let bgcolor = "#2B312B";
-let bgcolor2 = "#781AA1";
-let bgcolor3 = "#00ff00";
-let key_to_press;
-let g_start, g_end;
-let animation_loop;
+var W = canvas.width;
+var H = canvas.height;
+var degrees = 0;
+var new_degrees = 0;
+var time = 0;
+var color = "#B977E9";
+var txtcolor = "#ffffff";
+var bgcolor = "#2B312B";
+var bgcolor2 = "#781AA1";
+var bgcolor3 = "#00ff00";
+var key_to_press;
+var g_start, g_end;
+var animation_loop;
 
 
-let needed = 4;
-let streak = 0;
+var needed = 4;
+var streak = 0;
 
 
 function getRandomInt(min, max) {
@@ -26,7 +27,7 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
 }
 
-function init() {
+function StartCircle() {
     // Clear the canvas every time a chart is drawn
     ctx.clearRect(0,0,W,H);
 
@@ -51,8 +52,7 @@ function init() {
     ctx.lineWidth = 40;
     ctx.arc(W / 2, H / 2, 90, radians - 0.1 - 90 * Math.PI / 180, radians - 90 * Math.PI / 180, false);
     ctx.stroke();
-// alterar para 2 se n der o 0.01
-    // Adding the key_to_press
+
     ctx.fillStyle = txtcolor;
     ctx.font = "100px sans-serif";
     let text_width = ctx.measureText(key_to_press).width;
@@ -62,8 +62,8 @@ function init() {
 function draw(time) {
     if (typeof animation_loop !== undefined) clearInterval(animation_loop);
 
-    g_start = getRandomInt(20,40) / 10;
-    g_end = getRandomInt(5,10) / 10;
+    g_start = getRandomInt(20, 40) / 10;
+    g_end = getRandomInt(5, 10) / 10;
     g_end = g_start + g_end;
 
     degrees = 0;
@@ -78,12 +78,12 @@ function draw(time) {
 
 function animate_to() {
     if (degrees >= new_degrees) {
-        wrong();
+        CircleFail();
         return;
     }
 
     degrees+=2;
-    init();
+    StartCircle();
 }
 
 function correct(){
@@ -96,7 +96,7 @@ function correct(){
     };
 }
 
-function wrong(){
+function CircleFail(){
     clearInterval(animation_loop);
     endGame(false);
 }
@@ -104,30 +104,32 @@ function wrong(){
 document.addEventListener("keydown", function(ev) {
     let key_pressed = ev.key;
     let valid_keys = ['1','2','3','4'];
-    if( valid_keys.includes(key_pressed) ){
+    if( valid_keys.includes(key_pressed) && circle_started ){
         if( key_pressed === key_to_press ){
             let d_start = (180 / Math.PI) * g_start;
             let d_end = (180 / Math.PI) * g_end;
             if( degrees < d_start ){
-                wrong();
+                CircleFail();
             }else if( degrees > d_end ){
-                wrong();
+                CircleFail();
             }else{
                 correct();
             }
         }else{
-            wrong();
+            CircleFail();
         }
     }
 });
 
 function startGame(time){
     $('#circle').show();
+    circle_started = true;
     draw(time);      
   }
   
   function endGame(status){
     $('#circle').hide();
+    circle_started = false;
     var xhr = new XMLHttpRequest();
     let u = "fail";
         if(status)
@@ -141,8 +143,8 @@ function startGame(time){
   
   window.addEventListener("message", (event) => {
     if(event.data.action == "circle-start") {
-        if(event.data.value != null ){
-            needed = event.data.value
+        if(event.data.circles != null ){
+            needed = event.data.circles
         }else{
             needed = 4
         }

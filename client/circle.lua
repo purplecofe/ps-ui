@@ -7,7 +7,7 @@ local function Circle(circles, seconds, callback)
     NUI_status = true
     SendNUIMessage({
         action = 'circle-start',
-        value = circles,
+        circles = circles,
 		time = seconds,
     })
     while NUI_status do

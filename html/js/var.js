@@ -3,17 +3,17 @@ let speedInput;
 
 var timer_game, order;
 
-var game_started = false;
+var var_started = false;
 var game_playing = false;
 
 document.addEventListener("keydown", function(ev) {
     let key_pressed = ev.key;
     let valid_keys = ['Escape'];
 
-    if (game_started && valid_keys.includes(key_pressed)) {
+    if (var_started && valid_keys.includes(key_pressed)) {
         switch (key_pressed) {
             case 'Escape':
-                game_started = false;
+                var_started = false;
                 game_playing = false;
                 ev.target.classList.add('bad');
                 destroy()
@@ -31,7 +31,7 @@ var validate = (ev) => {
         ev.target.classList.add('good');
         order++;
         if(order > numbers){
-            game_started = false;
+            var_started = false;
             game_playing = false;
             document.querySelector('.var-splash .var-text').innerHTML = 'SUCCESS!';
             document.querySelector('.var-splash').classList.remove('hidden');
@@ -45,7 +45,7 @@ var validate = (ev) => {
         }
     } else {
         //destroy()
-        game_started = false;
+        var_started = false;
         game_playing = false;  
         ev.target.classList.add('bad');
         document.querySelector('.var-groups').classList.remove('playing');
@@ -105,14 +105,14 @@ var newPos = (element) => {
             newPos(element);
         },
         onUpdate() {
-            if(game_started === false) this.pause();
+            if(var_started === false) this.pause();
         }
     }).play();
 }
 
 let startVar = () => {
     order = 1;
-    game_started = true;
+    var_started = true;
     game_playing = false;
     
     numbers = blocksInput;

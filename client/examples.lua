@@ -19,7 +19,7 @@ RegisterCommand("var", function()
 		else
 			print("fail")
 		end
-    end, 2, 3)
+    end, 2, 3) -- Number of Blocks, Time (seconds)
 end)
 
 -- CIRCLE

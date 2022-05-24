@@ -1,4 +1,5 @@
 let Items = [];
+let Open = false;
 
 function CreateMenu(data) {
     Items = [];
@@ -23,6 +24,7 @@ function CreateMenu(data) {
         Items[i] = data[i];
         $('#menu-items').append(e);
     }
+    Open = true;
 }
 
 window.addEventListener('message', (event) => {
@@ -35,7 +37,7 @@ document.addEventListener("keydown", function(ev) {
     let key_pressed = ev.key;
     let valid_keys = ['Escape'];
   
-    if (valid_keys.includes(key_pressed)) {
+    if (valid_keys.includes(key_pressed) && Open) {
         switch (key_pressed) {
             case 'Escape':
                 MenuClose()
@@ -47,6 +49,7 @@ document.addEventListener("keydown", function(ev) {
 function MenuClose() {
     $.post('https://ps-ui/menuClose', JSON.stringify({"ok":true}));
     $(".item").remove();
+    Open = false
 }
 
 function MenuSelect(id) {

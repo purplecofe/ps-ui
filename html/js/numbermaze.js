@@ -1,9 +1,9 @@
 var timer_start, timer_finish, timer_hide, timer_time, good_positions, best_route, blinking_pos, last_pos, wrong, speed, timerStart;
-var game_started = false;
+var maze_started = false;
 
 
 function MazeListener(ev) {
-    if(!game_started) return;
+    if(!maze_started) return;
     let pos_clicked = parseInt(ev.target.dataset.position);
     if(pos_clicked === 0) return;
     
@@ -47,7 +47,7 @@ function AddMazeListeners() {
 function CheckMaze() {
     if (wrong === 3) {
         ResetMazeTimer();
-        game_started = false;
+        maze_started = false;
 
         let blocks = document.querySelectorAll('.numbermaze-group');
         good_positions.push(48);
@@ -58,7 +58,7 @@ function CheckMaze() {
         setTimeout(function() { 
             $(".numbermaze-hack").fadeOut();
             ResetNumberMaze();
-            $.post(`https://${GetParentResourceName()}/numbermaze-callback`, JSON.stringify({ 'success': false }));
+            $.post(`https://ps-ui/maze-callback`, JSON.stringify({ 'success': false }));
         }, 4000);
         
         return;
@@ -71,7 +71,7 @@ function CheckMaze() {
         setTimeout(function() { 
             $(".numbermaze-hack").fadeOut();
             ResetNumberMaze();
-            $.post(`https://${GetParentResourceName()}/numbermaze-callback`, JSON.stringify({ 'success': true }));
+            $.post(`https://ps-ui/maze-callback`, JSON.stringify({ 'success': true }));
         }, 4000);
     }
 }
@@ -121,7 +121,7 @@ function generateBestRoute(start_pos) {
 }
 
 function ResetNumberMaze() {
-    game_started = false;
+    maze_started = false;
     last_pos = 0;
 
     ResetMazeTimer();
@@ -179,7 +179,7 @@ function StartNumberMaze() {
         
         StartMazeTimer();
         timer_finish = sleep((speed * 1000), function(){
-            game_started = false;
+            maze_started = false;
             wrong = 3;
             CheckMaze();
         });
@@ -209,7 +209,7 @@ function ResetMazeTimer() {
 }
 
 window.addEventListener('message', (event) => {
-    if (event.data.action === 'numbermaze-start') {
+    if (event.data.action === 'maze-start') {
         speed = event.data.speed
         document.querySelector('.numbermaze-splash').classList.remove('hidden');
         document.querySelector('.numbermaze-splash .numbermaze-text').innerHTML = 'Network Access Blocked... Override Required';
@@ -217,7 +217,7 @@ window.addEventListener('message', (event) => {
         sleep(3000, function() {
             document.querySelector('.numbermaze-splash').classList.add('hidden');
             document.querySelector('.numbermaze-groups').classList.remove('hidden', 'playing');
-            game_started = true;
+            maze_started = true;
             StartNumberMaze();
         });
     }
@@ -227,14 +227,15 @@ document.addEventListener("keydown", function(ev) {
     let key_pressed = ev.key;
     let valid_keys = ['Escape'];
 
-    if (game_started && valid_keys.includes(key_pressed)) {
+    if (maze_started && valid_keys.includes(key_pressed)) {
         switch (key_pressed) {
             case 'Escape':
-                game_started = false;
+                console.log("maze call", maze_started)
+                maze_started = false;
                 game_playing = false;
                 ResetNumberMaze();
-                $.post(`https://${GetParentResourceName()}/numbermaze-callback`, JSON.stringify({ 'success': false }));
-                setTimeout(function() { $(".numbermaze-hack").fadeOut() }, 500);
+                $.post(`https://ps-ui/maze-callback`, JSON.stringify({ 'success': false }));
+                $(".numbermaze-hack").fadeOut(500)
                 break;
         }
     }
