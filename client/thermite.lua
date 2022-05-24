@@ -11,6 +11,7 @@ end)
 
 local function Thermite(cb, time, gridsize, wrong)
     if not open then
+        print(time, gridsize, wrong)
         p = promise.new()
         if time == nil then time = 10 end
         if gridsize == nil then gridsize = 6 end

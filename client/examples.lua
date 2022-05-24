@@ -41,7 +41,7 @@ RegisterCommand("thermite", function()
 		else
 			print("fail")
 		end
-    end, 30, 7, 5) -- Time, Gridsize (5, 6, 7, 8, 9, 10), IncorrectBlocks
+    end, 10, 5, 3) -- Time, Gridsize (5, 6, 7, 8, 9, 10), IncorrectBlocks
 end)
 
 -- SCRAMBLER

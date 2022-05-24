@@ -140,18 +140,17 @@ function ResetThermiteTimer() {
 
 window.addEventListener('message', (event) => {
   if (event.data.action === 'thermite-start') {
-      speed = event.data.time
-      mode = event.data.gridsize
-      if (mode < 7 || mode > 10) mode = 7;
-      wrong_max = event.data.wrong 
+    speed = event.data.time
+    mode = event.data.gridsize
+    wrong_max = event.data.wrong 
 
-      $(".thermite").fadeIn();
-      document.querySelector('.thermite').classList.remove('hidden');
-      document.querySelector('.thermite-splash').classList.remove('hidden');
-      document.querySelector('.thermite-splash .thermite-text').innerHTML = 'Network Access Blocked... Override Required';
-      sleep(3000, function() {
-          StartThermite();
-      });
+    $(".thermite").fadeIn();
+    document.querySelector('.thermite').classList.remove('hidden');
+    document.querySelector('.thermite-splash').classList.remove('hidden');
+    document.querySelector('.thermite-splash .thermite-text').innerHTML = 'Network Access Blocked... Override Required';
+    sleep(3000, function() {
+        StartThermite();
+    });
   }
 });
 
@@ -162,7 +161,6 @@ document.addEventListener("keydown", function(ev) {
   if (thermite_started && valid_keys.includes(key_pressed)) {
       switch (key_pressed) {
           case 'Escape':
-              console.log("here")
               thermite_started = false;
               game_playing = false;
               ResetThermite();
