@@ -15,7 +15,6 @@ document.addEventListener("keydown", function(ev) {
             case 'Escape':
                 var_started = false;
                 game_playing = false;
-                ev.target.classList.add('bad');
                 destroy()
                 $.post('https://ps-ui/var-callback', JSON.stringify({ 'success': false }));
                 setTimeout(function() { $(".var-hack").fadeOut() }, 500);

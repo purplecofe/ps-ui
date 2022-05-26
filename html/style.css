@@ -308,7 +308,7 @@ body::-webkit-scrollbar {
 
   /* VAR */
 
-.var-splash{
+.var-splash {
   display: inline-block;
   width: 100%;
   margin: 352px auto;
@@ -348,6 +348,10 @@ body::-webkit-scrollbar {
 
 .var-hack {
 
+  top: 50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  position:absolute;
 
   margin: 0 auto 20px;
   width: 1536px;
@@ -357,7 +361,7 @@ body::-webkit-scrollbar {
   min-height: 865px;
   max-height: 865px;
   background-color: #20282e;
-  position: relative;
+  /* position: relative; */
   display: none;
 }
 

@@ -1,7 +1,5 @@
 local p = nil
 
-
-
 local function Circle(cb, circles, seconds)
     p = promise.new()
     SendNUIMessage({

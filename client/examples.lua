@@ -8,7 +8,7 @@ RegisterCommand("maze",function()
 		else
 			print("fail")
 		end
-    end, 20) --Hack duration will be 20 seconds
+    end, 20) -- Hack Time Limit
 end) 
 
 -- VAR
@@ -57,7 +57,7 @@ end)
 
 -- DISPLAY TEXT
 RegisterCommand("display", function()
-    exports['ps-ui']:DisplayText("Example Text", "primary")
+    exports['ps-ui']:DisplayText("Example Text", "primary") -- Colors: primary, error, success, warning, info, mint
 end)
 
 RegisterCommand("hide", function()

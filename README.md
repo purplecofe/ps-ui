@@ -2,11 +2,11 @@
 
 ```
 exports['ps-ui']:Circle(function(success)
-        if success then
-            print("success")
-		else
-			print("fail")
-		end
+    if success then
+        print("success")
+	else
+		print("fail")
+	end
 end, 2, 20) -- NumberOfCircles, MS
 ```
 ![image](https://user-images.githubusercontent.com/7463741/170584584-5bb36aab-8ca4-461b-8e0d-99ea2d27adf3.png)
@@ -15,10 +15,10 @@ end, 2, 20) -- NumberOfCircles, MS
 ```
 exports['ps-ui']:Maze(function(success)
     if success then
-      print("success")
-		else
-			print("fail")
-		end
+        print("success")
+	else
+		print("fail")
+	end
 end, 20) -- Hack Time Limit
 ```
 ![image](https://user-images.githubusercontent.com/7463741/170586240-fa92a1fc-aac0-48bb-938f-f6f03a63511f.png)
@@ -27,22 +27,22 @@ end, 20) -- Hack Time Limit
 ```
 exports['ps-ui']:VarHack(function(success)
     if success then
-      print("success")
-		else
-			print("fail")
-		end
+        print("success")
+	else
+		print("fail")
+	end
  end, 2, 3) -- Number of Blocks, Time (seconds)
  ```
  ![image](https://user-images.githubusercontent.com/7463741/170586620-51c8648d-1f2c-4ff5-a8d0-755c82b34d58.png)
  
  ## Thermite
  ```
- exports['ps-ui']:Thermite(function(success)
+exports['ps-ui']:Thermite(function(success)
     if success then
-      print("success")
-		else
-			print("fail")
-		end
+        print("success")
+	else
+		print("fail")
+	end
 end, 10, 5, 3) -- Time, Gridsize (5, 6, 7, 8, 9, 10), IncorrectBlocks
  ```
  ![image](https://user-images.githubusercontent.com/7463741/170587067-4c27bf6e-8f5b-4bff-a739-d688be3450fe.png)
@@ -51,10 +51,10 @@ end, 10, 5, 3) -- Time, Gridsize (5, 6, 7, 8, 9, 10), IncorrectBlocks
 ```
 eexports['ps-ui']:Scrambler(function(success)
     if success then
-      print("success")
-		else
-			print("fail")
-		end
+        print("success")
+	else
+		print("fail")
+	end
 end, "numeric", 30, 0) -- Type (alphabet, numeric, alphanumeric, greek, braille, runes), Time (Seconds), Mirrored (0: Normal, 1: Normal + Mirrored 2: Mirrored only )
 ```
 ![image](https://user-images.githubusercontent.com/7463741/170587319-2109661a-8baf-48ff-b4bb-cd18fc10ec73.png)
