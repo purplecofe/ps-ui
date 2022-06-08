@@ -1,16 +1,19 @@
 window.addEventListener('message', function (event) {
     if (event.data.action == "status") {
+        let update = event.data.update;
         let show = event.data.show;
         let title = event.data.title;
         let values = event.data.values;
-    
-        if (show) {
+        if(update) {
+            $(".status").empty();
+            $(".status").append(createTitle(title));
+            $(".status").append(createValues(values));
+        } else if (show) {
             $(".status").empty();
             $(".status").append(createTitle(title));
             $(".status").append(createValues(values));
             $(".status").show();
             $(".status").animate({ bottom: '0px' }, 250);
-    
         } else {
             $(".status").animate({ bottom: '-500px' }, 250, function () {
                 $(".status").empty();
