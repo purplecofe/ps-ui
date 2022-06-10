@@ -24,3 +24,8 @@ RegisterNUICallback('input-callback', function(data, cb)
     Active = false
     cb('ok')
 end)
+
+RegisterNUICallback('input-close', function(data, cb)
+    SetNuiFocus(false, false)
+    cb('ok')
+end)

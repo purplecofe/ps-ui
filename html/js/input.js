@@ -36,6 +36,7 @@ function SubmitInput() {
 }
 
 function CloseInput() {
+    $.post('https://ps-ui/input-close', JSON.stringify({"ok":true}));
     $(".input").fadeOut(0);
     document.querySelector('.input').innerHTML = '';
     Input = false;
