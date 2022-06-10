@@ -119,12 +119,12 @@ body::-webkit-scrollbar {
 
 .menu-text {
   padding-left: 15px;
-  color: white;
+  color: grey;
   flex-direction: column;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 1.0rem;
+  font-size: 0.8rem;
   overflow: hidden;
-  font-weight: 300;
+  font-weight: 200;
 
   -moz-user-select: none; 
   -webkit-user-select: none; 
@@ -143,9 +143,9 @@ body::-webkit-scrollbar {
   overflow: wrap;
   color: rgb(232, 229, 229);
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 0.9rem;
+  font-size: 1.0rem;
   overflow: hidden;
-  font-weight: 500;
+  font-weight: 200;
 
   -moz-user-select: none; 
   -webkit-user-select: none; 
@@ -173,11 +173,11 @@ body::-webkit-scrollbar {
   display: none;
   position: absolute;
   margin: 50px auto;
-  top: 50%;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #212529;
-  padding: 10px 10px 10px 10px;
+  padding: 15px 15px 15px 15px;
 }
 
 .input-title {
@@ -197,13 +197,15 @@ body::-webkit-scrollbar {
 }
 
 .input-btn {
-  background-color: #212529;
-  color: white;
+  background-color: #d2bdff;
+  color: #212529;
   border: 2px solid #d2bdff;
   border-radius: 4px;
+  padding: 10px 28px;
   position: relative;
   cursor: pointer;
   font-family: "Roboto", sans-serif;
+  font-size: 14px;
   margin: 15px;
 }
 
@@ -222,6 +224,17 @@ body::-webkit-scrollbar {
   background: #fff;
   transition: border .3s ease;
 
+}
+
+.input-field:focus {
+  outline: none !important;
+  border:1px solid #d2bdff;
+  box-shadow: 0 0 10px #719ECE;
+}
+
+.input-field::placeholder {
+  text-align: center;
+  font-weight: bold;
 }
 
 /* CIRCLE */

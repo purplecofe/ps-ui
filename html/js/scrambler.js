@@ -70,7 +70,7 @@ document.addEventListener("keydown", function(ev) {
     }
 });
 
-function CheckScrambler(){
+function CheckScrambler() {
     StopScramblerTimer();
 
     let current_attempt = (current_pos+codes_pos);
@@ -94,7 +94,7 @@ let moveCodes = () => {
     codes_pos = codes_pos % 80;
 
     let codes_tmp = [...codes];
-    for(let i=0; i<codes_pos; i++){
+    for(let i=0; i<codes_pos; i++) {
         codes_tmp.push(codes_tmp[i]);
     }
     codes_tmp.splice(0, codes_pos);
