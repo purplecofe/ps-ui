@@ -142,6 +142,9 @@ window.addEventListener('message', (event) => {
   if (event.data.action === 'thermite-start') {
     speed = event.data.time
     mode = event.data.gridsize
+    if (mode < 5 || mode > 10) {
+        mode = 5;
+    }
     wrong_max = event.data.wrong 
 
     $(".thermite").fadeIn();
