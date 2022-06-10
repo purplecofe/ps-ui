@@ -8,6 +8,8 @@ RegisterNUICallback('var-callback', function(data, cb)
 end)
 
 local function VarHack(callback, blocks, speed)
+    if speed == nil or (speed < 2) then speed = 20 end
+    if blocks == nil or (blocks < 1 or blocks > 15) then blocks = 5 end
     if not open then
         open = true
         Callbackk = callback

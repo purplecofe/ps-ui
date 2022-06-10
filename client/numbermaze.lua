@@ -10,6 +10,7 @@ RegisterNUICallback('maze-callback', function(data, cb)
 end)
 
 local function Maze(callback, speed)
+    if speed == nil then speed = 10 end
     if not open then
         p = promise.new()
         open = true
