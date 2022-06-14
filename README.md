@@ -155,3 +155,9 @@ local input = exports['ps-ui']:Input({
     })
 ```
 ![image](https://user-images.githubusercontent.com/7463741/170587795-236d2826-c510-4622-9580-dc2cd3bf1902.png)
+
+## Show Image
+
+```
+local input = exports['ps-ui']:ShowImage("https://user-images.githubusercontent.com/91661118/168956591-43462c40-e7c2-41af-8282-b2d9b6716771.png")
+```

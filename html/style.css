@@ -589,3 +589,39 @@ body::-webkit-scrollbar {
   -webkit-transform: scale(-1, -1);
   transform: scale(-1, -1);
 }
+
+#showImage {
+  padding: 10px;
+  position: absolute;
+  top: 47%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 45px;
+  text-align: center;
+}
+
+#showImage .btn {
+  position: absolute;
+  top: 5%;
+  right: 0px;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #3C3C3C;
+  color: #00FFBF;
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 12px 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button {
+  background-color: white;
+  padding: 12px;
+}
+
+.contain {
+  object-fit: contain;
+}
