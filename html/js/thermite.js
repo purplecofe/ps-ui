@@ -49,9 +49,9 @@ function CheckThermite() {
         return;
     }
     if (right === mode_data[mode][0]) {
-      StopThermiteTimer();
-      $.post(`https://ps-ui/thermite-callback`, JSON.stringify({ 'success': true }));
-      ResetThermite();
+        StopThermiteTimer();
+        $.post(`https://ps-ui/thermite-callback`, JSON.stringify({ 'success': true }));
+        ResetThermite();
     }
 }
 
