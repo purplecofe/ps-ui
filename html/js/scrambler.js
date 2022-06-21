@@ -148,7 +148,7 @@ let charGroupsSelected = () => {
     return charGroups;
 }
 
-function resetScrambler(restart = true){
+function resetScrambler(restart) {
     scrambler_started = false;
 
     ResetScramblerTimer();
