@@ -158,7 +158,6 @@ RegisterCommand("input", function()
     end
 end)
 
-
-
-
-
+RegisterCommand("showimage", function()
+    exports['ps-ui']:ShowImage("https://user-images.githubusercontent.com/91661118/168956591-43462c40-e7c2-41af-8282-b2d9b6716771.png")
+end)
