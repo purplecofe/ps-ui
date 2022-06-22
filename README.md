@@ -9,7 +9,7 @@ exports['ps-ui']:Circle(function(success)
 	end
 end, 2, 20) -- NumberOfCircles, MS
 ```
-![image](https://user-images.githubusercontent.com/7463741/170584584-5bb36aab-8ca4-461b-8e0d-99ea2d27adf3.png)
+![image](https://user-images.githubusercontent.com/70592880/174923967-49718d68-a71d-4df7-8664-a210bee0d1a5.png)
 
 ## Number Maze
 ```
@@ -71,6 +71,10 @@ exports['ps-ui']:HideText()
 exports['ps-ui']:StatusShow("Area Dominance", {
   "Gang: Ballas",
   "Influence: %100",
+})
+exports['ps-ui']:StatusUpdate("Area Dominance", {
+  "Gang: Ballas",
+  "Influence: %99",
 })
 exports['ps-ui']:StatusHide()
 ```
