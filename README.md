@@ -1,3 +1,8 @@
+# Project Sloth UI
+![image](https://user-images.githubusercontent.com/82112471/175300046-5835dcc8-475f-46b5-bc2b-2b1fdc6fd760.png)
+
+![image](https://user-images.githubusercontent.com/82112471/175300175-6d6f926f-b3e2-42d3-b564-2e52e737d6c2.png)
+
 ## Circle Minigame
 
 ```
