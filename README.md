@@ -1,5 +1,6 @@
-# Project Sloth UI
 ![image](https://user-images.githubusercontent.com/82112471/175300046-5835dcc8-475f-46b5-bc2b-2b1fdc6fd760.png)
+### Project Sloth UI
+A single resource made up of several smaller, UI-related scripts for use in your server, accessible via client-side exports. Documentation and previews of each are provided below. We will continue to add to this collection in the future.
 
 ![image](https://user-images.githubusercontent.com/82112471/175300175-6d6f926f-b3e2-42d3-b564-2e52e737d6c2.png)
 
