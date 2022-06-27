@@ -174,4 +174,6 @@ exports['ps-ui']:ShowImage("https://user-images.githubusercontent.com/91661118/1
 ![image](https://user-images.githubusercontent.com/70592880/173483722-53c40c11-faf0-42d8-98b2-ec97d99c3a39.png)
 
 
-CREDITS: https://github.com/sharkiller/nopixel_minigame
+CREDITS: 
+- https://github.com/sharkiller/nopixel_minigame
+- https://github.com/iLLeniumStudios/is-statushud
