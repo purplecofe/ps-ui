@@ -3,7 +3,6 @@ local open = false
 RegisterNUICallback('maze-callback', function(data, cb)
 	SetNuiFocus(false, false)
     Callback(data.success)
-    p = nil
     open = false
     cb('ok')
 end)
