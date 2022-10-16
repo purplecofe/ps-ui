@@ -26,7 +26,7 @@ window.addEventListener('message', function (event) {
 
 
 function createTitle(title) {
-    return createParagraph(title, "title");
+    return createParagraph(title, "tite");
 }
 
 function createValues(values) {

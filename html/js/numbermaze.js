@@ -6,11 +6,11 @@ function MazeListener(ev) {
     if(!maze_started) return;
     let pos_clicked = parseInt(ev.target.dataset.position);
     if(pos_clicked === 0) return;
-    
+
     if(last_pos === 0){
         document.querySelectorAll('.numbermaze-group.breathing').forEach(el => { el.classList.remove('breathing') });
         document.querySelector('.numbermaze-groups').classList.add('transparent');
-        
+
         if(pos_clicked === blinking_pos || pos_clicked === blinking_pos * 7){
             last_pos = pos_clicked;
             ev.target.classList.add('good');
@@ -22,7 +22,7 @@ function MazeListener(ev) {
         let pos_jumps = parseInt(document.querySelectorAll('.numbermaze-group')[last_pos].innerText, 10);
         let maxV = maxVertical(last_pos);
         let maxH = maxHorizontal(last_pos);
-        
+
         if(pos_jumps <= maxH && pos_clicked === last_pos + pos_jumps){
             last_pos = pos_clicked;
             ev.target.classList.add('good');
@@ -55,12 +55,12 @@ function CheckMaze() {
             blocks[pos].classList.add('proper');
         });
         document.querySelector('.numbermaze-groups').classList.remove('transparent');
-        setTimeout(function() { 
+        setTimeout(function() {
             $(".numbermaze-hack").fadeOut();
             ResetNumberMaze();
             $.post(`https://ps-ui/maze-callback`, JSON.stringify({ 'success': false }));
         }, 4000);
-        
+
         return;
     }
     if (last_pos === 48) {
@@ -68,7 +68,7 @@ function CheckMaze() {
         document.querySelector('.numbermaze-groups').classList.add('hidden');
         document.querySelector('.numbermaze-splash').classList.remove('hidden');
         document.querySelector('.numbermaze-splash .numbermaze-text').innerHTML = 'SUCCESS!';
-        setTimeout(function() { 
+        setTimeout(function() {
             $(".numbermaze-hack").fadeOut();
             ResetNumberMaze();
             $.post(`https://ps-ui/maze-callback`, JSON.stringify({ 'success': true }));
@@ -116,7 +116,7 @@ function generateBestRoute(start_pos) {
         route[start_pos] = new_pos[0];
         start_pos = new_pos[1];
     }
-    
+
     return route;
 }
 
@@ -136,7 +136,7 @@ function ResetNumberMaze() {
 function StartNumberMaze() {
     wrong = 0;
     last_pos = 0;
-    
+
     blinking_pos = random(1,4);
     best_route = generateBestRoute(blinking_pos);
     good_positions = Object.keys(best_route);
@@ -172,11 +172,11 @@ function StartNumberMaze() {
     AddMazeListeners();
     timer_start = sleep(2000, function(){
         document.querySelector('.numbermaze-groups').classList.remove('hidden');
-        
+
         timer_hide = sleep(6000, function(){
             document.querySelector('.numbermaze-groups').classList.add('transparent');
         });
-        
+
         StartMazeTimer();
         timer_finish = sleep((speed * 1000), function(){
             maze_started = false;

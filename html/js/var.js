@@ -25,7 +25,7 @@ document.addEventListener("keydown", function(ev) {
 
 var validate = (ev) => {
     if (game_playing === false) return;
-    
+
     if (parseInt(ev.target.dataset.number, 10) === order) {
         ev.target.classList.add('good');
         order++;
@@ -35,7 +35,7 @@ var validate = (ev) => {
             document.querySelector('.var-splash .var-text').innerHTML = 'SUCCESS!';
             document.querySelector('.var-splash').classList.remove('hidden');
             $(".var-group").css("display", "none");
-            setTimeout(function() { 
+            setTimeout(function() {
                 $(".var-hack").fadeOut();
                 document.querySelector(".var-splash .var-text").innerHTML = 'PREPARING INTERFACE...';
                 destroy()
@@ -45,12 +45,12 @@ var validate = (ev) => {
     } else {
         //destroy()
         var_started = false;
-        game_playing = false;  
+        game_playing = false;
         ev.target.classList.add('bad');
         document.querySelector('.var-groups').classList.remove('playing');
         document.querySelector('.var-splash .var-text').innerHTML = 'SEQUENCE FAILED!';
 
-        setTimeout(function() { 
+        setTimeout(function() {
             $(".var-hack").fadeOut();
             destroy();
             $.post('https://ps-ui/var-callback', JSON.stringify({ 'success': false }));
@@ -60,7 +60,7 @@ var validate = (ev) => {
 
 var resetVar = () => {
     clearTimeout(timer_game);
-    
+
     document.querySelector('.var-splash').classList.add('hidden');
     document.querySelector('.var-groups').classList.remove('hidden','playing');
     document.querySelector('.var-groups').innerHTML = '';
@@ -81,7 +81,7 @@ var newPos = (element) => {
     let diff_top = new_top - top;
     let diff_left = new_left - left;
     let duration = random(10,40)*100;
-    
+
     new mojs.Html({
         el: '#'+element.id,
         x: {
@@ -113,7 +113,7 @@ let startVar = () => {
     order = 1;
     var_started = true;
     game_playing = false;
-    
+
     numbers = blocksInput;
 
     let nums = range(1, numbers);
@@ -130,10 +130,10 @@ let startVar = () => {
         document.querySelector('.var-groups').append(group);
     });
     document.querySelectorAll('.var-group').forEach(el => { newPos(el) });
-    
+
     speed = speedInput
     timer_game = sleep(speed * 1000, function(){
-        document.querySelector('.var-groups').classList.add('playing'); 
+        document.querySelector('.var-groups').classList.add('playing');
         game_playing = true;
     });
 }
@@ -150,6 +150,6 @@ window.addEventListener('message', (event) => {
             document.querySelector('.var-groups').classList.remove('hidden','playing');
             startVar();
         });
-        
+
     }
 });

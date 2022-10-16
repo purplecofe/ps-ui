@@ -1,11 +1,6 @@
 fx_version 'cerulean'
 game 'gta5'
 
-description 'https://github.com/Project-Sloth/ps-ui'
-
-credits 'https://github.com/sharkiller/nopixel_minigame'
-
-
 client_scripts {
   'client/*.lua',
 }
@@ -19,3 +14,5 @@ files {
     'html/index.html',
     'html/style.css',
 }
+
+lua54 'yes'

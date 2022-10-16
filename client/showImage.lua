@@ -3,17 +3,20 @@ local function SetDisplay(bool, img)
     SendNUIMessage({
         type = "showImage",
         image = img,
-        status = bool,
+        status = bool
     })
 end
 
 local function ShowImage(img)
+    TriggerEvent('animations:client:EmoteCommandStart', { "map" })
     SetDisplay(true, img)
 end
+exports("ShowImage", ShowImage)
 
 RegisterNUICallback("showItemImage-callback", function(data, cb)
+    TriggerEvent('animations:client:EmoteCommandStart', { "c" })
     SetDisplay(false)
-    cb('ok')
+    cb("ok")
 end)
 
-exports("ShowImage", ShowImage)
+RegisterNetEvent(("%s:showItemImage"):format(GetCurrentResourceName()), ShowImage)

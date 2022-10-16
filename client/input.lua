@@ -1,31 +1,32 @@
-local p = nil
-local Active = false
+local properties = nil
 
-local function Input(InputData)
-    p = promise.new()
-    while Active do Wait(0) end
-    Active = true
+RegisterNUICallback("buttonSubmit", function(data, cb)
+    SetNuiFocus(false)
+    properties:resolve(data.data)
+    properties = nil
+    cb("ok")
+end)
 
-    SendNUIMessage({
-        action = "input",
-        data = InputData
-    })
+RegisterNUICallback("closeInputMenu", function(data, cb)
+    SetNuiFocus(false)
+    properties:resolve(nil)
+    properties = nil
+    cb("ok")
+end)
+
+function ShowInput(data)
+    Wait(150)
+    if not data then return end
+    if properties then return end
+    properties = promise.new()
+
     SetNuiFocus(true, true)
+    SendNUIMessage({
+        action = "OPEN_INPUTMENU",
+        data = data
+    })
 
-    local inputs = Citizen.Await(p)
-    return inputs
+    return Citizen.Await(properties)
 end
-exports("Input", Input)
 
-RegisterNUICallback('input-callback', function(data, cb)
-	SetNuiFocus(false, false)
-    p:resolve(data.input)
-    p = nil
-    Active = false
-    cb('ok')
-end)
-
-RegisterNUICallback('input-close', function(data, cb)
-    SetNuiFocus(false, false)
-    cb('ok')
-end)
+exports("ShowInput", ShowInput)

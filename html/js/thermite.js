@@ -39,7 +39,7 @@ function CheckThermite() {
     if(wrong === wrong_max){
         ResetThermiteTimer();
         thermite_started = false;
-        
+
         let blocks = document.querySelectorAll('.thermite-group');
         good_positions.forEach( pos => {
             blocks[pos].classList.add('proper');
@@ -145,7 +145,7 @@ window.addEventListener('message', (event) => {
     if (mode < 5 || mode > 10) {
         mode = 5;
     }
-    wrong_max = event.data.wrong 
+    wrong_max = event.data.wrong
 
     $(".thermite").fadeIn();
     document.querySelector('.thermite').classList.remove('hidden');

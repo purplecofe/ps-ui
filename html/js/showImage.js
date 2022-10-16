@@ -6,7 +6,7 @@ $(function () {
             $("#showImage").hide();
         }
     }
-    
+
     display(false)
 
     window.addEventListener('message', function(event) {
