@@ -1,11 +1,8 @@
 local open = false
-local p = nil
 
 RegisterNUICallback("maze-callback", function(data, cb)
 	SetNuiFocus(false, false)
     
-    p:resolve(data.success)
-    p = nil
     open = false
 
     cb("ok")
@@ -15,7 +12,7 @@ local function Maze(cb, speed)
     local _speed = speed and tonumber(speed) or 10
 
     if not open then
-        p = promise.new()
+        Callback = callback
         open = true
 
         SetNuiFocus(true, true)
