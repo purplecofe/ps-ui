@@ -34,7 +34,7 @@ end)
 
 -- THERMITE
 RegisterCommand("thermite", function()
-    exports['ps-ui']:Thermite(function(success)
+    exports['thermite']:Thermite(function(success)
         if success then
             print("success")
         else

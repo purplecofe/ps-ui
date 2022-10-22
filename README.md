@@ -47,7 +47,7 @@ exports['ps-ui']:VarHack(function(success)
 
  ## Thermite
  ```
-exports['ps-ui']:Thermite(function(success)
+exports['thermite']:Thermite(function(success)
     if success then
         print("success")
 	else
